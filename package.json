@@ -1,4 +1,47 @@
 {
-  "name": "router",
-  "packageManager": "yarn@4.9.1"
+  "name": "react-router-training",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "lint": "eslint . --ext ts,tsx --report-unused-disable-directives",
+    "lint:fix": "eslint . --ext ts,tsx --report-unused-disable-directives --fix",
+    "pretty:fix": "prettier --write .",
+    "pretty": "prettier --check .",
+    "qa": "yarn lint && yarn pretty",
+    "clean": "manypkg exec rm -rf node_modules && manypkg exec rm -rf dist && rm -rf node_modules",
+    "start:data-way": "yarn manypkg run data-way dev",
+    "start:declarative-way": "yarn manypkg run declarative-way dev",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "@eslint/js": "^9.22.0",
+    "@manypkg/cli": "^0.24.0",
+    "@typescript-eslint/eslint-plugin": "^8.32.0",
+    "@typescript-eslint/parser": "^8.32.0",
+    "eslint": "^9.22.0",
+    "eslint-config-prettier": "^10.1.2",
+    "eslint-plugin-import": "^2.31.0",
+    "eslint-plugin-jsx-a11y": "^6.10.2",
+    "eslint-plugin-prettier": "^5.4.0",
+    "eslint-plugin-react": "^7.37.5",
+    "eslint-plugin-react-hooks": "^6.0.0-rc.1",
+    "eslint-plugin-react-refresh": "^0.4.19",
+    "globals": "^16.0.0",
+    "husky": "^9.1.7",
+    "json-server": "0.17.4",
+    "prettier": "^3.5.3",
+    "typescript": "^5.8.3",
+    "typescript-eslint": "^8.26.1",
+    "zod": "^3.24.3"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "packageManager": "yarn@4.6.0+sha224.acd0786f07ffc6c933940eb65fc1d627131ddf5455bddcc295dc90fd",
+  "workspaces": [
+    "packages/*",
+    "apps/*",
+    "services/*"
+  ]
 }
