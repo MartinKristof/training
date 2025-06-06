@@ -1,5 +1,6 @@
-import { useActionState } from 'react';
 import { useNavigate } from 'react-router';
+import { useActionState } from 'react';
+import { useAppState } from '../context/AppContext';
 
 type ActionState = {
   success?: boolean | null;
@@ -7,18 +8,18 @@ type ActionState = {
   errors?: {
     name?: string;
     email?: string;
-    message?: string;
   };
 };
 
-export const Contact = () => {
+export const CreateUser = () => {
   const navigate = useNavigate();
+  const { addUser, isLoading } = useAppState();
   const [state, submitForm, isPending] = useActionState<ActionState, FormData>(
     async (_, formData: FormData) => {
       const name = formData.get('name') as string;
       const email = formData.get('email') as string;
-      const message = formData.get('message') as string;
 
+      // Validate form data
       const errors: ActionState['errors'] = {};
 
       if (!name) {
@@ -33,29 +34,21 @@ export const Contact = () => {
         errors.email = 'Invalid email address';
       }
 
-      if (!message) {
-        errors.message = 'Message is required';
-      } else if (message.length < 10) {
-        errors.message = 'Message must be at least 10 characters long';
-      }
-
       if (Object.keys(errors).length > 0) {
-        const result = {
-          errors,
+        return {
           success: false,
           message: 'Please fix the errors in the form.',
+          errors,
         };
-        return result;
       }
 
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
+      await addUser({ name, email });
+      navigate('/users');
 
-      const result = {
+      return {
         success: true,
-        message: 'Thank you for your message! We will get back to you soon.',
+        message: 'User created successfully!',
       };
-      return result;
     },
     { success: null, errors: {}, message: '' },
   );
@@ -63,18 +56,19 @@ export const Contact = () => {
   return (
     <div className="max-w-2xl mx-auto">
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-2xl font-bold">Contact Us</h2>
+        <h2 className="text-2xl font-bold">Create New User</h2>
         <button onClick={() => navigate(-1)} className="px-4 py-2 text-sm text-gray-600 hover:text-gray-900">
           ← Back
         </button>
       </div>
+
+      {isLoading && <div className="mb-4 p-4 bg-blue-50 text-blue-700 rounded-lg">Loading...</div>}
 
       {state.success === false && state?.errors && (
         <div className="mb-6 p-4 bg-red-50 text-red-700 rounded-lg">
           {state.message && <p className="mb-2">{state.message}</p>}
           {state.errors.name && <p className="mb-2">{state.errors.name}</p>}
           {state.errors.email && <p className="mb-2">{state.errors.email}</p>}
-          {state.errors.message && <p className="mb-2">{state.errors.message}</p>}
         </div>
       )}
 
@@ -89,6 +83,7 @@ export const Contact = () => {
             name="name"
             className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             required
+            disabled={isLoading || isPending}
           />
           {state?.errors?.name && <p className="mt-1 text-sm text-red-600">{state.errors.name}</p>}
         </div>
@@ -103,38 +98,26 @@ export const Contact = () => {
             name="email"
             className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
             required
+            disabled={isLoading || isPending}
           />
           {state?.errors?.email && <p className="mt-1 text-sm text-red-600">{state.errors.email}</p>}
-        </div>
-
-        <div>
-          <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
-            Message
-          </label>
-          <textarea
-            id="message"
-            name="message"
-            rows={4}
-            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            required
-          />
-          {state?.errors?.message && <p className="mt-1 text-sm text-red-600">{state.errors.message}</p>}
         </div>
 
         <div className="flex justify-end space-x-4">
           <button
             type="button"
-            onClick={() => navigate('/')}
+            onClick={() => navigate('/users')}
             className="px-4 py-2 text-sm text-gray-600 hover:text-gray-900"
+            disabled={isLoading || isPending}
           >
             Cancel
           </button>
           <button
             type="submit"
-            disabled={isPending}
             className="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors disabled:bg-blue-400"
+            disabled={isLoading || isPending}
           >
-            {isPending ? 'Sending...' : 'Send Message'}
+            {isPending ? 'Creating...' : 'Create User'}
           </button>
         </div>
       </form>

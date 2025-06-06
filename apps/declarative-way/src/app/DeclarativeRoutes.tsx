@@ -6,6 +6,7 @@ import { UserDetails } from './components/UserDetails';
 import { Contact } from './components/Contact';
 import { NotFound } from './components/NotFound';
 import { ErrorBoundary } from './components/ErrorBoundary';
+import { CreateUser } from './components/CreateUser';
 
 export const DeclarativeRoutes = () => (
   <Routes>
@@ -13,6 +14,7 @@ export const DeclarativeRoutes = () => (
       <Route index element={<Home />} />
       <Route path="users">
         <Route index element={<Users />} />
+        <Route path="new" element={<CreateUser />} />
         <Route path=":userId" element={<UserDetails />} />
       </Route>
       <Route path="contact" element={<Contact />} />

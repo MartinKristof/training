@@ -1,8 +1,11 @@
 import { DeclarativeRoutes } from './DeclarativeRoutes';
 import { BrowserRouter } from 'react-router';
+import { AppProvider } from './context/AppContext';
 
 export const App = () => (
   <BrowserRouter>
-    <DeclarativeRoutes />
+    <AppProvider>
+      <DeclarativeRoutes />
+    </AppProvider>
   </BrowserRouter>
 );

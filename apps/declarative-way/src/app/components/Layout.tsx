@@ -15,7 +15,7 @@ export const Layout = () => (
           <div className="flex">
             {/* Logo */}
             <div className="flex-shrink-0 flex items-center">
-              <span className="text-xl font-bold text-blue-600">React Router Demo</span>
+              <span className="text-xl font-bold text-blue-600">React Router Demo - Declarative</span>
             </div>
 
             {/* Navigation Links */}

@@ -1,14 +1,10 @@
 import { useParams, useNavigate } from 'react-router';
-
-const users = [
-  { id: 1, name: 'John Doe', email: 'john@example.com' },
-  { id: 2, name: 'Jane Smith', email: 'jane@example.com' },
-  { id: 3, name: 'Bob Johnson', email: 'bob@example.com' },
-];
+import { useAppState } from '../context/AppContext';
 
 export const UserDetails = () => {
   const { userId } = useParams();
   const navigate = useNavigate();
+  const { users, removeUser } = useAppState();
   const user = users.find(u => u.id === Number(userId));
 
   if (!user) {
@@ -26,13 +22,23 @@ export const UserDetails = () => {
     );
   }
 
+  const handleDelete = () => {
+    removeUser(user.id);
+    navigate('/users');
+  };
+
   return (
-    <div className="mt-4">
+    <div>
       <div className="flex items-center justify-between mb-6">
-        <h2 className="text-xl font-bold">User Details</h2>
-        <button onClick={() => navigate(-1)} className="px-4 py-2 text-sm text-gray-600 hover:text-gray-900">
-          ← Back
-        </button>
+        <h2 className="text-2xl font-bold">User Details</h2>
+        <div className="space-x-2">
+          <button onClick={() => navigate(-1)} className="px-4 py-2 text-sm text-gray-600 hover:text-gray-900">
+            ← Back
+          </button>
+          <button onClick={handleDelete} className="px-4 py-2 text-sm text-red-600 hover:text-red-700">
+            Delete User
+          </button>
+        </div>
       </div>
       <div className="p-4 bg-gray-50 rounded">
         <h3 className="text-lg font-semibold">{user.name}</h3>
