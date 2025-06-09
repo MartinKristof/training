@@ -1,0 +1,55 @@
+// CSS Modules (scoped styles)
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 2rem;
+}
+
+.title {
+  color: #333;
+  font-size: 2rem;
+  margin-bottom: 2rem;
+  text-align: center;
+}
+
+.section {
+  margin-bottom: 3rem;
+  padding: 1.5rem;
+  background: #f8f9fa;
+  border-radius: 8px;
+
+  h3 {
+    color: #2196f3;
+    margin-bottom: 1rem;
+  }
+}
+
+.buttonGroup {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+}
+
+.card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: transform 0.2s;
+
+  &:hover {
+    transform: translateY(-4px);
+  }
+}
+
+.cardHeader {
+  background: #2196f3;
+  color: white;
+  padding: 1rem;
+  font-weight: 500;
+}
+
+.cardBody {
+  padding: 1.5rem;
+  color: #666;
+}

@@ -1,4 +1,4 @@
-import React, { createContext, use, useReducer, useState } from 'react';
+import React, { createContext, use, useReducer, useState, useCallback, useMemo } from 'react';
 
 type User = {
   id: number;
@@ -22,7 +22,7 @@ const initialState: AppState = {
   isLoading: false,
 };
 
-function appReducer(state: AppState, action: Action): AppState {
+const appReducer = (state: AppState, action: Action): AppState => {
   switch (action.type) {
     case 'ADD_USER':
       return {
@@ -37,7 +37,7 @@ function appReducer(state: AppState, action: Action): AppState {
     default:
       return state;
   }
-}
+};
 
 type AppContextType = AppState & {
   addUser: (user: Omit<User, 'id'>) => Promise<void>;
@@ -56,40 +56,45 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
   const [state, dispatch] = useReducer(appReducer, initialState);
   const [isLoading, setIsLoading] = useState(false);
 
-  const addUser = async (user: Omit<User, 'id'>) => {
-    setIsLoading(true);
-    try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      dispatch({ type: 'ADD_USER', payload: user });
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  const removeUser = async (id: number) => {
-    setIsLoading(true);
-    try {
-      // Simulate API call
-      await new Promise(resolve => setTimeout(resolve, 1000));
-      dispatch({ type: 'REMOVE_USER', payload: id });
-    } finally {
-      setIsLoading(false);
-    }
-  };
-
-  return (
-    <AppContext.Provider
-      value={{
-        ...state,
-        isLoading,
-        addUser,
-        removeUser,
-      }}
-    >
-      {children}
-    </AppContext.Provider>
+  const addUser = useCallback(
+    async (user: Omit<User, 'id'>) => {
+      setIsLoading(true);
+      try {
+        // Simulate API call
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        dispatch({ type: 'ADD_USER', payload: user });
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [dispatch],
   );
+
+  const removeUser = useCallback(
+    async (id: number) => {
+      setIsLoading(true);
+      try {
+        // Simulate API call
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        dispatch({ type: 'REMOVE_USER', payload: id });
+      } finally {
+        setIsLoading(false);
+      }
+    },
+    [dispatch],
+  );
+
+  const contextValue = useMemo(
+    () => ({
+      ...state,
+      isLoading,
+      addUser,
+      removeUser,
+    }),
+    [state, isLoading, addUser, removeUser],
+  );
+
+  return <AppContext.Provider value={contextValue}>{children}</AppContext.Provider>;
 };
 
 // Custom hook to use the context with React 19's use API

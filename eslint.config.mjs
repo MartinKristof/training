@@ -9,10 +9,8 @@ import prettierConfig from 'eslint-config-prettier';
 import reactPlugin from 'eslint-plugin-react';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
 
-
 export default [
   {
-
     files: ['**/*.{ts,tsx}'],
 
     languageOptions: {
@@ -32,6 +30,7 @@ export default [
     },
 
     settings: {
+      'import/core-modules': ['styled-jsx/css'],
       react: {
         version: 'detect',
       },

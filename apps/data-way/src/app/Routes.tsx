@@ -4,15 +4,22 @@ import { Home } from './routes/Home';
 import { NotFound } from './routes/NotFound';
 import { ErrorBoundaryNested } from './routes/ErrorBoundaryNested';
 import { ErrorBoundary } from './components/ErrorBoundary';
-import { Contact, contactAction } from './routes/Contact';
+import { Contact } from './routes/Contact';
+import { Submissions } from './routes/Submissions';
 import { fetchUserDetails } from './api/users';
 import { UserDetails } from './routes/UserDetails';
 import { CreateUser, createUserAction } from './routes/CreateUser';
+import { StylingDemoRoute } from './routes/Styling';
+import { ContactProvider } from './context/ContactContext';
 
 export const router = createBrowserRouter([
   {
     path: '/',
-    element: <Layout />,
+    element: (
+      <ContactProvider>
+        <Layout />
+      </ContactProvider>
+    ),
     errorElement: <ErrorBoundary />,
     children: [
       {
@@ -49,7 +56,14 @@ export const router = createBrowserRouter([
       {
         path: 'contact',
         element: <Contact />,
-        action: contactAction,
+      },
+      {
+        path: 'submissions',
+        element: <Submissions />,
+      },
+      {
+        path: 'styling',
+        element: <StylingDemoRoute />,
       },
       {
         path: '*',
@@ -59,6 +73,4 @@ export const router = createBrowserRouter([
   },
 ]);
 
-export function Routes() {
-  return <RouterProvider router={router} />;
-}
+export const Routes = () => <RouterProvider router={router} />;

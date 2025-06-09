@@ -1,13 +1,16 @@
 import { NavLink, Outlet } from 'react-router';
+import { Footer } from './Footer';
 
 const navigation = [
   { name: 'Home', path: '/' },
   { name: 'Users', path: '/users' },
   { name: 'Contact', path: '/contact' },
+  { name: 'Submissions', path: '/submissions' },
+  { name: 'Styling', path: '/styling' },
 ];
 
 export const Layout = () => (
-  <div className="min-h-screen bg-gray-50">
+  <div className="min-h-screen bg-gray-50 flex flex-col">
     {/* Navigation */}
     <nav className="bg-white shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -88,7 +91,7 @@ export const Layout = () => (
     </nav>
 
     {/* Main Content */}
-    <main className="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+    <main className="flex-1 max-w-7xl w-full mx-auto py-6 sm:px-6 lg:px-8 mb-16">
       <div className="px-4 py-6 sm:px-0">
         <div className="bg-white shadow-sm rounded-lg p-6">
           <Outlet />
@@ -96,21 +99,6 @@ export const Layout = () => (
       </div>
     </main>
 
-    {/* Footer */}
-    <footer className="bg-white border-t border-gray-200 mt-auto">
-      <div className="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
-        <p className="text-center text-sm text-gray-500">
-          Built with React Router v7 •{' '}
-          <a
-            href="https://github.com/remix-run/react-router"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="text-blue-600 hover:text-blue-500"
-          >
-            View on GitHub
-          </a>
-        </p>
-      </div>
-    </footer>
+    <Footer />
   </div>
 );
