@@ -1,6 +1,7 @@
 import { useNavigate } from 'react-router';
 import { useActionState } from 'react';
 import { useAppState } from '../context/AppContext';
+import { Input, Label, ErrorMessage } from '@training/ui';
 
 type ActionState = {
   success?: boolean | null;
@@ -37,18 +38,25 @@ export const CreateUser = () => {
       if (Object.keys(errors).length > 0) {
         return {
           success: false,
-          message: 'Please fix the errors in the form.',
           errors,
         };
       }
 
-      await addUser({ name, email });
-      navigate('/users');
+      try {
+        await addUser({ name, email });
+        navigate('/users');
 
-      return {
-        success: true,
-        message: 'User created successfully!',
-      };
+        return {
+          success: true,
+          message: 'User created successfully!',
+        };
+      } catch (error) {
+        return {
+          success: false,
+          message: `Failed to create user. ${error instanceof Error ? `: ${error.message}` : ''}`,
+          errors: {},
+        };
+      }
     },
     { success: null, errors: {}, message: '' },
   );
@@ -64,43 +72,33 @@ export const CreateUser = () => {
 
       {isLoading && <div className="mb-4 p-4 bg-blue-50 text-blue-700 rounded-lg">Loading...</div>}
 
-      {state.success === false && state?.errors && (
+      {state.success === false && state?.message && (
         <div className="mb-6 p-4 bg-red-50 text-red-700 rounded-lg">
           {state.message && <p className="mb-2">{state.message}</p>}
-          {state.errors.name && <p className="mb-2">{state.errors.name}</p>}
-          {state.errors.email && <p className="mb-2">{state.errors.email}</p>}
         </div>
       )}
 
       <form action={submitForm} className="space-y-6">
-        <div>
-          <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+        <div className="space-y-1">
+          <Label htmlFor="name" required>
             Name
-          </label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            required
-            disabled={isLoading || isPending}
-          />
-          {state?.errors?.name && <p className="mt-1 text-sm text-red-600">{state.errors.name}</p>}
+          </Label>
+          <Input id="name" name="name" type="text" hasError={!!state?.errors?.name} disabled={isLoading || isPending} />
+          {state?.errors?.name && <ErrorMessage id="name-error">{state.errors.name}</ErrorMessage>}
         </div>
 
-        <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+        <div className="space-y-1">
+          <Label htmlFor="email" required>
             Email
-          </label>
-          <input
-            type="email"
+          </Label>
+          <Input
             id="email"
             name="email"
-            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            required
+            type="email"
+            hasError={!!state?.errors?.email}
             disabled={isLoading || isPending}
           />
-          {state?.errors?.email && <p className="mt-1 text-sm text-red-600">{state.errors.email}</p>}
+          {state?.errors?.email && <ErrorMessage id="email-error">{state.errors.email}</ErrorMessage>}
         </div>
 
         <div className="flex justify-end space-x-4">

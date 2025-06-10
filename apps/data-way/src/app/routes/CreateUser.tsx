@@ -1,7 +1,9 @@
-import { Form, useNavigate, redirect } from 'react-router';
+import { Form, useNavigate, redirect, useActionData } from 'react-router';
+import { ErrorMessage, Input, Label } from '@training/ui';
 
 export const CreateUser = () => {
   const navigate = useNavigate();
+  const actionData = useActionData<{ nameError: string; emailError: string }>();
 
   return (
     <div className="max-w-2xl mx-auto mt-5">
@@ -13,30 +15,20 @@ export const CreateUser = () => {
       </div>
 
       <Form method="post" className="space-y-6">
-        <div>
-          <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+        <div className="space-y-1">
+          <Label htmlFor="name" required>
             Name
-          </label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            required
-          />
+          </Label>
+          <Input id="name" name="name" type="text" hasError={!!actionData?.nameError} />
+          {actionData?.nameError && <ErrorMessage>{actionData.nameError}</ErrorMessage>}
         </div>
 
-        <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+        <div className="space-y-1">
+          <Label htmlFor="email" required>
             Email
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            className="w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-            required
-          />
+          </Label>
+          <Input id="email" name="email" type="email" hasError={!!actionData?.emailError} />
+          {actionData?.emailError && <ErrorMessage>{actionData.emailError}</ErrorMessage>}
         </div>
 
         <div className="flex justify-end space-x-4">
@@ -63,6 +55,24 @@ export const createUserAction = async ({ request }: { request: Request }) => {
   const formData = await request.formData();
   const name = formData.get('name') as string;
   const email = formData.get('email') as string;
+
+  // Basic validation
+  if (!name) {
+    return { nameError: 'Name is required.' };
+  }
+  if (!email) {
+    return { emailError: 'Email is required.' };
+  }
+  if (!/\S+@\S+\.\S+/.test(email)) {
+    return { emailError: 'Invalid email format.' };
+  }
+  // Additional validation can be added here
+  if (name.length < 3) {
+    return { nameError: 'Name must be at least 3 characters long.' };
+  }
+  if (email.length < 5) {
+    return { emailError: 'Email must be at least 5 characters long.' };
+  }
 
   // Simulate API call
   await new Promise(resolve => setTimeout(resolve, 1000));

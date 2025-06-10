@@ -1,13 +1,23 @@
+import type { FC } from 'react';
 import { NavLink, Outlet } from 'react-router';
-import { Footer } from './Footer';
 
-const navigation = [
-  { name: 'Home', path: '/' },
-  { name: 'Users', path: '/users' },
-  { name: 'Contact', path: '/contact' },
-];
+export interface NavigationItem {
+  path: string;
+  name: string;
+}
 
-export const Layout = () => (
+export interface LayoutProps {
+  /**
+   * The title of the application
+   */
+  title: string;
+  /**
+   * Array of navigation items to display in the header
+   */
+  navigation: NavigationItem[];
+}
+
+export const Layout: FC<LayoutProps> = ({ title, navigation }) => (
   <div className="min-h-screen bg-gray-50 flex flex-col">
     {/* Navigation */}
     <nav className="bg-white shadow-sm">
@@ -16,7 +26,7 @@ export const Layout = () => (
           <div className="flex">
             {/* Logo */}
             <div className="flex-shrink-0 flex items-center">
-              <span className="text-xl font-bold text-blue-600">React Router Demo - Declarative</span>
+              <span className="text-xl font-bold text-blue-600">{title}</span>
             </div>
 
             {/* Navigation Links */}
@@ -97,6 +107,30 @@ export const Layout = () => (
       </div>
     </main>
 
-    <Footer />
+    <footer className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 shadow-sm z-10 h-10">
+      <div className="max-w-7xl mx-auto py-4 px-4 sm:px-6 lg:px-8">
+        <div className="flex justify-between items-center">
+          <p className="text-sm text-gray-500">© {new Date().getFullYear()} React Router Demo</p>
+          <div className="flex space-x-4">
+            <a
+              href="https://github.com/remix-run/react-router"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-blue-600 hover:text-blue-500"
+            >
+              GitHub
+            </a>
+            <a
+              href="https://reactrouter.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-sm text-blue-600 hover:text-blue-500"
+            >
+              Documentation
+            </a>
+          </div>
+        </div>
+      </div>
+    </footer>
   </div>
 );

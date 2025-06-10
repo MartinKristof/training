@@ -1,5 +1,4 @@
 import { createBrowserRouter, RouterProvider } from 'react-router';
-import { Layout } from './components/Layout';
 import { Home } from './routes/Home';
 import { NotFound } from './routes/NotFound';
 import { ErrorBoundaryNested } from './routes/ErrorBoundaryNested';
@@ -11,13 +10,22 @@ import { UserDetails } from './routes/UserDetails';
 import { CreateUser, createUserAction } from './routes/CreateUser';
 import { StylingDemoRoute } from './routes/Styling';
 import { ContactProvider } from './context/ContactContext';
+import { Layout } from '@training/ui';
+
+const navigation = [
+  { name: 'Home', path: '/' },
+  { name: 'Users', path: '/users' },
+  { name: 'Contact', path: '/contact' },
+  { name: 'Submissions', path: '/submissions' },
+  { name: 'Styling', path: '/styling' },
+];
 
 export const router = createBrowserRouter([
   {
     path: '/',
     element: (
       <ContactProvider>
-        <Layout />
+        <Layout navigation={navigation} title="React Router Demo - Data" /> /
       </ContactProvider>
     ),
     errorElement: <ErrorBoundary />,

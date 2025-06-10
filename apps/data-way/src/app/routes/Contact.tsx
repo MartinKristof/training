@@ -4,6 +4,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useEffect } from 'react';
 import { useContactContext } from '../context/ContactContext';
+import { Input, Label, ErrorMessage } from '@training/ui';
 
 const contactSchema = z.object({
   name: z.string().min(3, 'Name must be at least 3 characters long'),
@@ -60,40 +61,26 @@ export const Contact = () => {
       {errors.root && <div className="mb-6 p-4 bg-red-50 text-red-700 rounded-lg">{errors.root.message}</div>}
 
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
-        <div>
-          <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
+        <div className="space-y-1">
+          <Label htmlFor="name" required>
             Name
-          </label>
-          <input
-            type="text"
-            id="name"
-            {...register('name')}
-            className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
-              errors.name ? 'border-red-500' : 'border-gray-300'
-            }`}
-          />
-          {errors.name && <p className="mt-1 text-sm text-red-600">{errors.name.message}</p>}
+          </Label>
+          <Input id="name" type="text" hasError={!!errors.name} {...register('name')} />
+          {errors.name && <ErrorMessage id="name-error">{errors.name.message}</ErrorMessage>}
         </div>
 
-        <div>
-          <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
+        <div className="space-y-1">
+          <Label htmlFor="email" required>
             Email
-          </label>
-          <input
-            type="email"
-            id="email"
-            {...register('email')}
-            className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
-              errors.email ? 'border-red-500' : 'border-gray-300'
-            }`}
-          />
-          {errors.email && <p className="mt-1 text-sm text-red-600">{errors.email.message}</p>}
+          </Label>
+          <Input id="email" type="email" hasError={!!errors.email} {...register('email')} />
+          {errors.email && <ErrorMessage id="email-error">{errors.email.message}</ErrorMessage>}
         </div>
 
-        <div>
-          <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-1">
+        <div className="space-y-1">
+          <Label htmlFor="message" required>
             Message
-          </label>
+          </Label>
           <textarea
             id="message"
             rows={4}
@@ -102,7 +89,7 @@ export const Contact = () => {
               errors.message ? 'border-red-500' : 'border-gray-300'
             }`}
           />
-          {errors.message && <p className="mt-1 text-sm text-red-600">{errors.message.message}</p>}
+          {errors.message && <ErrorMessage id="message-error">{errors.message.message}</ErrorMessage>}
         </div>
 
         <div className="flex justify-end space-x-4">

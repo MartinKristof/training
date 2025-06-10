@@ -1,5 +1,5 @@
 import { NavLink, Outlet } from 'react-router';
-import { Footer } from './Footer';
+import { Footer } from '@training/ui';
 
 const navigation = [
   { name: 'Home', path: '/' },
