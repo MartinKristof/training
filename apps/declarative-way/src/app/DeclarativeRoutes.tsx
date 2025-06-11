@@ -1,6 +1,6 @@
 import { Routes, Route } from 'react-router';
+import { Suspense, lazy } from 'react';
 import { Home } from './components/Home';
-import { Users } from './components/Users';
 import { UserDetails } from './components/UserDetails';
 import { Contact } from './components/Contact';
 import { NotFound } from './components/NotFound';
@@ -9,6 +9,10 @@ import { CreateUser } from './components/CreateUser';
 import { Layout } from '@training/ui';
 import { SearchableUserList } from './components/SearchableUserList';
 import { UserStats } from './components/UserStats';
+import { UsersLoading } from './components/UsersLoading';
+
+// Lazy load the Users component
+const Users = lazy(() => import('./components/Users').then(module => ({ default: module.Users })));
 
 const navigation = [
   { name: 'Home', path: '/' },
@@ -26,7 +30,14 @@ export const DeclarativeRoutes = () => (
     >
       <Route index element={<Home />} />
       <Route path="users">
-        <Route index element={<Users />} />
+        <Route
+          index
+          element={
+            <Suspense fallback={<UsersLoading />}>
+              <Users />
+            </Suspense>
+          }
+        />
         <Route path="new" element={<CreateUser />} />
         <Route path=":userId" element={<UserDetails />} />
       </Route>
