@@ -1,5 +1,5 @@
 {
-  "name": "react-router-training",
+  "name": "@training/react-router-training",
   "private": true,
   "version": "0.0.0",
   "type": "module",
@@ -33,7 +33,7 @@
     "prettier": "^3.5.3",
     "typescript": "^5.8.3",
     "typescript-eslint": "^8.26.1",
-    "zod": "^3.24.3"
+    "zod": "^3.25.56"
   },
   "engines": {
     "node": ">=20.0.0"
