@@ -1,31 +1,111 @@
-# React 19 features - React + TypeScript + Vite
+# Training monorepo
 
-React 19 project in TS based on Vite. Powered by TailwindCSS. With React Compiler RC!
+A monorepo project demonstrating different approaches to routing in React applications, built with modern tooling and best practices. This project showcases two different routing implementations:
+
+- Data-driven routing approach
+- Declarative routing approach
+
+## Tech Stack
+
+- React 19 with TypeScript
+- Vite for build tooling
+- TailwindCSS for styling
+- Yarn 4.6.0+ for package management
+- ESLint + Prettier for code quality
+- Husky for git hooks
+
+## Project Structure
+
+This is a monorepo using Yarn workspaces, organized as follows:
+
+- `apps/` - Contains the routing implementation examples:
+  - `data-way/` - Data-driven routing approach
+  - `declarative-way/` - Declarative routing approach
+- `packages/` - Shared packages:
+  - `ui/` - Common UI components
+
+## Prerequisites
+
+- Node.js >= 20.0.0
+- Yarn 4.6.0+
+
+### Installing Yarn 4
+
+1. First, install the latest version of Yarn globally:
+
+   ```bash
+   npm install -g yarn
+   ```
+
+2. Then, enable Yarn Berry (Yarn 4) in your project:
+
+   ```bash
+   yarn set version berry
+   ```
+
+3. Verify the installation:
+
+   ```bash
+   yarn --version
+   # Should show 4.6.0 or higher
+   ```
+
+4. (Optional) Enable Zero-Installs for faster installations:
+   ```bash
+   yarn config set enableGlobalCache true
+   ```
+
+## Getting Started
+
+1. Install dependencies:
+
+   ```bash
+   yarn install
+   ```
+
+2. Build ui package:
+
+```bash
+   yarn build:ui
+```
+
+3. Start the development server for a specific routing approach:
+
+   ```bash
+   # For data-driven routing approach
+   yarn start:data-way
+
+   # For declarative routing approach
+   yarn start:declarative-way
+   ```
+
+## Available Scripts
+
+- `yarn start:data-way` - Start the data-driven routing example
+- `yarn start:declarative-way` - Start the declarative routing example
+- `yarn lint` - Run ESLint to check code quality
+- `yarn lint:fix` - Fix ESLint issues automatically
+- `yarn pretty` - Check code formatting with Prettier
+- `yarn pretty:fix` - Fix code formatting issues automatically
+- `yarn qa` - Run both linting and formatting checks
+- `yarn clean` - Clean all node_modules and build artifacts
 
 ## Development
 
-1. Install deps with `yarn` command
-1. Run dev server with `yarn dev`
+For local development, you can use:
 
-## Production
+```bash
+yarn start:data-way
+# or with artificial delay
+yarn start:declarative-way
+```
 
-1. Install deps with `yarn` command
-1. Run build with `yarn build`
-1. Run server with `yarn preview`
+## Contributing
 
-## Scripts:
+1. Make sure to run `yarn qa` before committing changes
+2. Follow the established code style (ESLint + Prettier)
+3. Write meaningful commit messages
 
-- dev
-- build
-- preview
-- pretty
-- pretty:fix
-- lint
-- lint:fix
-- qa
+## License
 
-## Development
-
-1. Set `VITE_API_URL` in .env.local (to http://localhost:3030/posts)
-1. Install deps with `yarn` command
-1. Run backend with `yarn backend` or `yarn backend:delayed`
+Private - Training purposes only
