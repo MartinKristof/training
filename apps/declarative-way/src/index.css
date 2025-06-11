@@ -1,8 +1,7 @@
 @import "tailwindcss" source('./app');
-
 @source "../../../node_modules/@training/ui";
 
-/* 
+
 @layer base {
   *,
   ::after,
@@ -11,4 +10,4 @@
   ::file-selector-button {
     border-color: var(--color-gray-200, currentcolor);
   }
-} */
+}
