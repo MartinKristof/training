@@ -1,10 +1,11 @@
 import { useParams, useNavigate } from 'react-router';
-import { useAppState } from '../context/AppContext';
+import { useAppState, useAppActions } from '../context/AppContext';
 
 export const UserDetails = () => {
   const { userId } = useParams();
   const navigate = useNavigate();
-  const { users, removeUser } = useAppState();
+  const { users } = useAppState();
+  const { removeUser } = useAppActions();
   const user = users.find(u => u.id === Number(userId));
 
   if (!user) {

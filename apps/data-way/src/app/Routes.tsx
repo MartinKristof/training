@@ -25,7 +25,7 @@ export const router = createBrowserRouter([
     path: '/',
     element: (
       <ContactProvider>
-        <Layout navigation={navigation} title="React Router Demo - Data" /> /
+        <Layout navigation={navigation} title="React Router Demo - Data" />
       </ContactProvider>
     ),
     errorElement: <ErrorBoundary />,
@@ -38,7 +38,6 @@ export const router = createBrowserRouter([
         path: 'users',
         lazy: async () => {
           const module = await import('./routes/Users');
-
           return {
             element: <module.Users />,
             loader: module.loader,

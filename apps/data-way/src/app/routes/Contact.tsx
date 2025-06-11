@@ -3,7 +3,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useEffect } from 'react';
-import { useContactContext } from '../context/ContactContext';
+import { useContactActions } from '../context/ContactContext';
 import { Input, Label, ErrorMessage } from '@training/ui';
 
 const contactSchema = z.object({
@@ -16,7 +16,7 @@ type ContactFormData = z.infer<typeof contactSchema>;
 
 export const Contact = () => {
   const navigate = useNavigate();
-  const { addSubmission } = useContactContext();
+  const { addSubmission } = useContactActions();
   const {
     register,
     handleSubmit,

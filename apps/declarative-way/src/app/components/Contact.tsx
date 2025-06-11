@@ -76,6 +76,8 @@ export const Contact = () => {
         </button>
       </div>
 
+      {state.success && <div className="mb-6 p-4 bg-green-50 text-green-700 rounded-lg">{state.message}</div>}
+
       {state.success === false && state?.message && (
         <div className="mb-6 p-4 bg-red-50 text-red-700 rounded-lg">
           {state.message && <p className="mb-2">{state.message}</p>}

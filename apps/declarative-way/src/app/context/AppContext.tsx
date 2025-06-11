@@ -1,4 +1,4 @@
-import React, { createContext, use, useReducer, useState, useCallback, useMemo } from 'react';
+import React, { createContext, use, useReducer, useState, useCallback } from 'react';
 
 type User = {
   id: number;
@@ -39,21 +39,30 @@ const appReducer = (state: AppState, action: Action): AppState => {
   }
 };
 
-type AppContextType = AppState & {
-  addUser: (user: Omit<User, 'id'>) => Promise<void>;
-  removeUser: (id: number) => Promise<void>;
+// Separate contexts for state and dispatch
+export const AppStateContext = createContext<AppState | null>(null);
+export const AppDispatchContext = createContext<React.Dispatch<Action> | null>(null);
+
+// Custom hooks for using the contexts
+export const useAppState = () => {
+  const context = use(AppStateContext);
+  if (!context) {
+    throw new Error('useAppState must be used within an AppProvider');
+  }
+  return context;
 };
 
-const initialContext: AppContextType = {
-  ...initialState,
-  addUser: async () => {},
-  removeUser: async () => {},
+export const useAppDispatch = () => {
+  const context = use(AppDispatchContext);
+  if (!context) {
+    throw new Error('useAppDispatch must be used within an AppProvider');
+  }
+  return context;
 };
 
-export const AppContext = createContext<AppContextType>(initialContext);
-
-export const AppProvider = ({ children }: { children: React.ReactNode }) => {
-  const [state, dispatch] = useReducer(appReducer, initialState);
+// Action creators
+export const useAppActions = () => {
+  const dispatch = useAppDispatch();
   const [isLoading, setIsLoading] = useState(false);
 
   const addUser = useCallback(
@@ -84,26 +93,19 @@ export const AppProvider = ({ children }: { children: React.ReactNode }) => {
     [dispatch],
   );
 
-  const contextValue = useMemo(
-    () => ({
-      ...state,
-      isLoading,
-      addUser,
-      removeUser,
-    }),
-    [state, isLoading, addUser, removeUser],
-  );
-
-  return <AppContext.Provider value={contextValue}>{children}</AppContext.Provider>;
+  return {
+    addUser,
+    removeUser,
+    isLoading,
+  };
 };
 
-// Custom hook to use the context with React 19's use API
-export const useAppState = () => {
-  const context = use(AppContext);
+export const AppProvider = ({ children }: { children: React.ReactNode }) => {
+  const [state, dispatch] = useReducer(appReducer, initialState);
 
-  if (!context) {
-    throw new Error('useAppState must be used within an AppProvider');
-  }
-
-  return context;
+  return (
+    <AppStateContext.Provider value={state}>
+      <AppDispatchContext.Provider value={dispatch}>{children}</AppDispatchContext.Provider>
+    </AppStateContext.Provider>
+  );
 };

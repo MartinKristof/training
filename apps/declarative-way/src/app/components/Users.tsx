@@ -1,9 +1,10 @@
 import { useNavigate } from 'react-router';
-import { useAppState } from '../context/AppContext';
+import { useAppState, useAppActions } from '../context/AppContext';
 
 export const Users = () => {
   const navigate = useNavigate();
-  const { users, removeUser, isLoading } = useAppState();
+  const { users, isLoading } = useAppState();
+  const { removeUser } = useAppActions();
 
   const handleDelete = async (id: number) => {
     if (window.confirm('Are you sure you want to delete this user?')) {

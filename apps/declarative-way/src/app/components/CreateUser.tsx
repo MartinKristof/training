@@ -1,6 +1,6 @@
 import { useNavigate } from 'react-router';
 import { useActionState } from 'react';
-import { useAppState } from '../context/AppContext';
+import { useAppActions, useAppState } from '../context/AppContext';
 import { Input, Label, ErrorMessage } from '@training/ui';
 
 type ActionState = {
@@ -14,7 +14,8 @@ type ActionState = {
 
 export const CreateUser = () => {
   const navigate = useNavigate();
-  const { addUser, isLoading } = useAppState();
+  const { isLoading } = useAppState();
+  const { addUser } = useAppActions();
   const [state, submitForm, isPending] = useActionState<ActionState, FormData>(
     async (_, formData: FormData) => {
       const name = formData.get('name') as string;

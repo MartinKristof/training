@@ -1,7 +1,7 @@
-import { useContactContext } from '../context/ContactContext';
+import { useContactState } from '../context/ContactContext';
 
 export const Submissions = () => {
-  const { submissions } = useContactContext();
+  const { submissions } = useContactState();
 
   return (
     <div className="max-w-4xl mx-auto p-6">

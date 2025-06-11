@@ -1,4 +1,4 @@
-import { createContext, useState, ReactNode, use, useCallback, useMemo } from 'react';
+import { createContext, useReducer, ReactNode, use, useCallback, type Dispatch } from 'react';
 
 export type ContactSubmission = {
   id: string;
@@ -8,42 +8,81 @@ export type ContactSubmission = {
   submittedAt: Date;
 };
 
-type ContactContextType = {
+type ContactState = {
   submissions: ContactSubmission[];
-  addSubmission: (submission: Omit<ContactSubmission, 'id' | 'submittedAt'>) => void;
 };
 
-const ContactContext = createContext<ContactContextType | undefined>(undefined);
+type ContactAction = {
+  type: 'ADD_SUBMISSION';
+  payload: Omit<ContactSubmission, 'id' | 'submittedAt'>;
+};
 
-export const useContactContext = () => {
-  //   const context = useContext(ContactContext);
-  const context = use(ContactContext);
+// Separate contexts for state and dispatch
+export const ContactStateContext = createContext<ContactState | null>(null);
+export const ContactDispatchContext = createContext<Dispatch<ContactAction> | null>(null);
 
+// Custom hooks for using the contexts
+export const useContactState = () => {
+  const context = use(ContactStateContext);
   if (!context) {
-    throw new Error('useContactContext must be used within a ContactProvider');
+    throw new Error('useContactState must be used within a ContactProvider');
   }
   return context;
 };
 
-export const ContactProvider = ({ children }: { children: ReactNode }) => {
-  const [submissions, setSubmissions] = useState<ContactSubmission[]>([]);
+export const useContactDispatch = () => {
+  const context = use(ContactDispatchContext);
+  if (!context) {
+    throw new Error('useContactDispatch must be used within a ContactProvider');
+  }
+  return context;
+};
 
-  const addSubmission = useCallback((submission: Omit<ContactSubmission, 'id' | 'submittedAt'>) => {
-    const newSubmission: ContactSubmission = {
-      ...submission,
-      id: crypto.randomUUID(),
-      submittedAt: new Date(),
-    };
-    setSubmissions(prev => [...prev, newSubmission]);
-  }, []); // No dependencies since setSubmissions is stable
+// Action creator hook
+export const useContactActions = () => {
+  const dispatch = useContactDispatch();
 
-  const contextValue = useMemo(
-    () => ({
-      submissions,
-      addSubmission,
-    }),
-    [submissions, addSubmission],
+  const addSubmission = useCallback(
+    (submission: Omit<ContactSubmission, 'id' | 'submittedAt'>) => {
+      dispatch({
+        type: 'ADD_SUBMISSION',
+        payload: submission,
+      });
+    },
+    [dispatch],
   );
 
-  return <ContactContext.Provider value={contextValue}>{children}</ContactContext.Provider>;
+  return { addSubmission };
+};
+
+const contactReducer = (state: ContactState, action: ContactAction): ContactState => {
+  switch (action.type) {
+    case 'ADD_SUBMISSION': {
+      const newSubmission: ContactSubmission = {
+        ...action.payload,
+        id: crypto.randomUUID(),
+        submittedAt: new Date(),
+      };
+      return {
+        ...state,
+        submissions: [...state.submissions, newSubmission],
+      };
+    }
+    default:
+      return state;
+  }
+};
+
+const initialState: ContactState = {
+  submissions: [],
+};
+
+export const ContactProvider = ({ children }: { children: ReactNode }) => {
+  const [state, dispatch] = useReducer(contactReducer, initialState);
+
+  return (
+    <ContactStateContext.Provider value={state}>
+      <ContactDispatchContext.Provider value={dispatch}>{children}</ContactDispatchContext.Provider>
+    </ContactStateContext.Provider>
+  );
 };

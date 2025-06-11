@@ -7,10 +7,14 @@ import { NotFound } from './components/NotFound';
 import { ErrorBoundary } from './components/ErrorBoundary';
 import { CreateUser } from './components/CreateUser';
 import { Layout } from '@training/ui';
+import { SearchableUserList } from './components/SearchableUserList';
+import { UserStats } from './components/UserStats';
 
 const navigation = [
   { name: 'Home', path: '/' },
   { name: 'Users', path: '/users' },
+  { name: 'Searchable Users', path: '/searchable-users' },
+  { name: 'User Stats', path: '/user-stats' },
   { name: 'Contact', path: '/contact' },
 ];
 
@@ -26,6 +30,8 @@ export const DeclarativeRoutes = () => (
         <Route path="new" element={<CreateUser />} />
         <Route path=":userId" element={<UserDetails />} />
       </Route>
+      <Route path="searchable-users" element={<SearchableUserList />} />
+      <Route path="user-stats" element={<UserStats />} />
       <Route path="contact" element={<Contact />} />
       <Route path="*" element={<NotFound />} />
     </Route>
