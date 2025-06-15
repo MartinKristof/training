@@ -1,4 +1,5 @@
 import { createBrowserRouter, RouterProvider } from 'react-router';
+import { Profiler } from 'react';
 import { Home } from './routes/Home';
 import { NotFound } from './routes/NotFound';
 import { ErrorBoundaryNested } from './routes/ErrorBoundaryNested';
@@ -11,6 +12,8 @@ import { CreateUser, createUserAction } from './routes/CreateUser';
 import { StylingDemoRoute } from './routes/Styling';
 import { ContactProvider } from './context/ContactContext';
 import { Layout } from '@training/ui';
+import { UserListDemo as MemoizedDemo } from './components/memoized/UserListDemo';
+import { UserListDemo as UnmemoizedDemo } from './components/unmemoized/UserListDemo';
 
 const navigation = [
   { name: 'Home', path: '/' },
@@ -18,7 +21,30 @@ const navigation = [
   { name: 'Contact', path: '/contact' },
   { name: 'Submissions', path: '/submissions' },
   { name: 'Styling', path: '/styling' },
+  { name: 'Unmemoized', path: '/unmemoized' },
+  { name: 'Memoized', path: '/memoized' },
 ];
+
+// Profiler callback function
+const onRender = (
+  id: string,
+  phase: 'mount' | 'update' | 'nested-update',
+  actualDuration: number,
+  baseDuration: number,
+  startTime: number,
+  commitTime: number,
+) => {
+  console.table({
+    id,
+    phase,
+    actualDuration,
+    baseDuration,
+    startTime,
+    commitTime,
+    difference: actualDuration - baseDuration,
+    memoizationBenefit: `${(((baseDuration - actualDuration) / baseDuration) * 100).toFixed(2)}%`,
+  });
+};
 
 export const router = createBrowserRouter([
   {
@@ -71,6 +97,22 @@ export const router = createBrowserRouter([
       {
         path: 'styling',
         element: <StylingDemoRoute />,
+      },
+      {
+        path: 'unmemoized',
+        element: (
+          <Profiler id="UnmemoizedDemo" onRender={onRender}>
+            <UnmemoizedDemo />
+          </Profiler>
+        ),
+      },
+      {
+        path: 'memoized',
+        element: (
+          <Profiler id="MemoizedDemo" onRender={onRender}>
+            <MemoizedDemo />
+          </Profiler>
+        ),
       },
       {
         path: '*',
