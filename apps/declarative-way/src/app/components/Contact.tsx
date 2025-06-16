@@ -4,7 +4,10 @@ import { Input, Label, ErrorMessage } from '@training/ui';
 
 type ActionState = {
   success?: boolean | null;
+  info?: string;
   message?: string;
+  name?: string;
+  email?: string;
   errors?: {
     name?: string;
     email?: string;
@@ -15,7 +18,7 @@ type ActionState = {
 export const Contact = () => {
   const navigate = useNavigate();
   const [state, submitForm, isPending] = useActionState<ActionState, FormData>(
-    async (_, formData: FormData) => {
+    async (_, formData) => {
       const name = formData.get('name') as string;
       const email = formData.get('email') as string;
       const message = formData.get('message') as string;
@@ -44,6 +47,9 @@ export const Contact = () => {
         const result = {
           errors,
           success: false,
+          name,
+          email,
+          message,
         };
         return result;
       }
@@ -54,17 +60,17 @@ export const Contact = () => {
 
         return {
           success: true,
-          message: 'Thank you for your message! We will get back to you soon.',
+          info: 'Thank you for your message! We will get back to you soon.',
         };
       } catch (error) {
         return {
           success: false,
-          message: `Failed to send message. Please try again later. ${error instanceof Error ? `: ${error.message}` : ''}`,
+          info: `Failed to send message. Please try again later. ${error instanceof Error ? `: ${error.message}` : ''}`,
           errors: {},
         };
       }
     },
-    { success: null, errors: {}, message: '' },
+    { success: null, errors: {}, info: '' },
   );
 
   return (
@@ -76,20 +82,14 @@ export const Contact = () => {
         </button>
       </div>
 
-      {state.success && <div className="mb-6 p-4 bg-green-50 text-green-700 rounded-lg">{state.message}</div>}
-
-      {state.success === false && state?.message && (
-        <div className="mb-6 p-4 bg-red-50 text-red-700 rounded-lg">
-          {state.message && <p className="mb-2">{state.message}</p>}
-        </div>
-      )}
+      {state.success && <div className="mb-6 p-4 bg-green-50 text-green-700 rounded-lg">{state.info}</div>}
 
       <form action={submitForm} className="space-y-6">
         <div className="space-y-1">
           <Label htmlFor="name" required>
             Name
           </Label>
-          <Input id="name" name="name" type="text" hasError={!!state?.errors?.name} />
+          <Input id="name" name="name" type="text" hasError={!!state?.errors?.name} defaultValue={state.name} />
           {state?.errors?.name && <ErrorMessage id="name-error">{state.errors.name}</ErrorMessage>}
         </div>
 
@@ -97,7 +97,7 @@ export const Contact = () => {
           <Label htmlFor="email" required>
             Email
           </Label>
-          <Input id="email" name="email" type="email" hasError={!!state?.errors?.email} />
+          <Input id="email" name="email" type="email" hasError={!!state?.errors?.email} defaultValue={state.email} />
           {state?.errors?.email && <ErrorMessage id="email-error">{state.errors.email}</ErrorMessage>}
         </div>
 
@@ -110,6 +110,7 @@ export const Contact = () => {
             className={`w-full px-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 ${
               state?.errors?.message ? 'border-red-500' : 'border-gray-300'
             }`}
+            defaultValue={state.message}
           />
           {state?.errors?.message && <ErrorMessage id="message-error">{state.errors.message}</ErrorMessage>}
         </div>

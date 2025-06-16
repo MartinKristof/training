@@ -534,6 +534,12 @@ const SearchPage = () => {
 
 ---
 
+# UseOptimistic
+
+## [Demo App](https://github.com/MartinKristof/react-19-features/tree/main/src/app)
+
+---
+
 # Resources
 
 - [React Documentation](https://react.dev)

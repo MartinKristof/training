@@ -28,4 +28,4 @@ export const UserStats = memo<UserStatsProps>(({ users, selectedUserId }) => {
   );
 });
 
-UserStats.displayName = 'UserStats';
+UserStats.displayName = 'MemoizedUserStats';

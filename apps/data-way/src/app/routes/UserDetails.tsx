@@ -1,13 +1,8 @@
 import { useLoaderData } from 'react-router';
-
-type User = {
-  id: number;
-  name: string;
-  email: string;
-};
+import { User } from '../api/users';
 
 export const UserDetails = () => {
-  const { user } = useLoaderData() as { user: User };
+  const { user } = useLoaderData<{ user: User }>();
 
   return (
     <div className="mt-4 p-4 bg-gray-50 rounded">

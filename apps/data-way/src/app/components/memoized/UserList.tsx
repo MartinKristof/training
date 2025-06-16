@@ -19,7 +19,7 @@ export const UserList = memo<UserListProps>(({ users, onUserSelect }) => {
   );
 });
 
-UserList.displayName = 'UserList';
+UserList.displayName = 'MemoizedUserList';
 
 interface UserItemProps {
   user: User;
@@ -44,4 +44,4 @@ const UserItem = memo<UserItemProps>(({ user, onSelect }) => {
   );
 });
 
-UserItem.displayName = 'UserItem';
+UserItem.displayName = 'MemoizedUserItem';
