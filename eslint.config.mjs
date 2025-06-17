@@ -11,7 +11,10 @@ import jsxA11y from 'eslint-plugin-jsx-a11y';
 
 export default [
   {
-    files: ['**/*.{ts,tsx}'],
+    ignores: ['**/node_modules/**', '**/.next/**', '**/dist/**', '**/build/**'],
+  },
+  {
+    files: ['**/*.{ts,tsx,mjs}'],
 
     languageOptions: {
       parser: tsparser,

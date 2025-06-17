@@ -13,6 +13,7 @@
     "clean": "manypkg exec rm -rf node_modules && manypkg exec rm -rf dist && rm -rf node_modules",
     "start:data-way": "yarn manypkg run data-way dev",
     "start:declarative-way": "yarn manypkg run declarative-way dev",
+    "start:next-guide-app": "yarn manypkg run next-guide-app dev",
     "prepare": "husky",
     "build:ui": "yarn manypkg run @training/ui build"
   },
