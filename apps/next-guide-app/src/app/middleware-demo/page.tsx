@@ -1,7 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { useTransition } from 'react';
+import useSWR, { mutate } from 'swr';
 import Link from 'next/link';
+import { setAuthToken, clearAuthToken } from './actions';
 
 interface RequestInfo {
   headers: Record<string, string>;
@@ -10,23 +12,35 @@ interface RequestInfo {
   timestamp: string;
 }
 
-export default function MiddlewareDemoPage() {
-  const [requestInfo, setRequestInfo] = useState<RequestInfo | null>(null);
-  const [loading, setLoading] = useState(true);
+const API_REQUEST_INFO_URL = '/api/request-info';
 
-  useEffect(() => {
-    // Fetch current request information
-    fetch('/api/request-info')
-      .then(res => res.json())
-      .then(data => {
-        setRequestInfo(data);
-        setLoading(false);
-      })
-      .catch(error => {
-        console.error('Failed to fetch request info:', error);
-        setLoading(false);
-      });
-  }, []);
+const fetcher = async (url: string) => {
+  try {
+    const res = await fetch(url);
+    if (!res.ok) throw new Error('Failed to fetch request info');
+    return await res.json();
+  } catch (err) {
+    throw new Error('Error fetching request info: ' + (err instanceof Error ? err.message : String(err)));
+  }
+};
+
+export default function MiddlewareDemoPage() {
+  const { data: requestInfo, error, isLoading } = useSWR<RequestInfo>(API_REQUEST_INFO_URL, fetcher);
+  const [isPending, startTransition] = useTransition();
+
+  async function handleSetAuthToken() {
+    startTransition(async () => {
+      await setAuthToken();
+      mutate(API_REQUEST_INFO_URL);
+    });
+  }
+
+  async function handleClearAuthToken() {
+    startTransition(async () => {
+      await clearAuthToken();
+      mutate(API_REQUEST_INFO_URL);
+    });
+  }
 
   return (
     <div className="space-y-8">
@@ -55,21 +69,34 @@ export default function MiddlewareDemoPage() {
           <div className="bg-yellow-50 p-4 rounded-lg">
             <h3 className="font-semibold text-yellow-800 mb-2">Try These Actions:</h3>
             <div className="space-y-2">
+              {requestInfo && !requestInfo.headers['cookie']?.includes('auth-token=') && (
+                <div className="text-sm text-red-700 bg-red-100 rounded p-2 mb-2">
+                  <strong>Warning:</strong> Auth token cookie is not set. You will be redirected to login if you try to
+                  access the dashboard.
+                </div>
+              )}
+
               <Link href="/dashboard" className="block text-yellow-700 hover:text-yellow-800 underline">
                 Visit Dashboard (requires auth)
               </Link>
-              <button
-                onClick={() => (document.cookie = 'auth-token=demo-token; path=/; max-age=3600')}
-                className="block text-yellow-700 hover:text-yellow-800 underline text-left"
-              >
-                Set Auth Token (then visit dashboard)
-              </button>
-              <button
-                onClick={() => (document.cookie = 'auth-token=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT')}
-                className="block text-yellow-700 hover:text-yellow-800 underline text-left"
-              >
-                Clear Auth Token
-              </button>
+              <form action={handleSetAuthToken}>
+                <button
+                  type="submit"
+                  className="block text-yellow-700 hover:text-yellow-800 underline text-left"
+                  disabled={isPending}
+                >
+                  Set Auth Token (then visit dashboard)
+                </button>
+              </form>
+              <form action={handleClearAuthToken}>
+                <button
+                  type="submit"
+                  className="block text-yellow-700 hover:text-yellow-800 underline text-left"
+                  disabled={isPending}
+                >
+                  Clear Auth Token
+                </button>
+              </form>
             </div>
           </div>
 
@@ -90,17 +117,19 @@ export default function MiddlewareDemoPage() {
           <div className="bg-white p-6 rounded-lg shadow-sm border">
             <h3 className="text-lg font-semibold text-gray-900 mb-4">Current Request Information</h3>
 
-            {loading ? (
+            {isLoading ? (
               <div className="animate-pulse space-y-3">
                 <div className="h-4 bg-gray-200 rounded w-3/4"></div>
                 <div className="h-4 bg-gray-200 rounded w-1/2"></div>
                 <div className="h-4 bg-gray-200 rounded w-2/3"></div>
               </div>
+            ) : error ? (
+              <p className="text-red-600">Failed to load request information: {error.message}</p>
             ) : requestInfo ? (
               <div className="space-y-4">
                 <div>
                   <h4 className="font-medium text-gray-900 mb-2">Request Details:</h4>
-                  <div className="bg-gray-50 p-3 rounded text-sm">
+                  <div className="bg-gray-50 p-3 rounded text-sm text-gray-900">
                     <p>
                       <strong>URL:</strong> {requestInfo.url}
                     </p>
@@ -115,7 +144,7 @@ export default function MiddlewareDemoPage() {
 
                 <div>
                   <h4 className="font-medium text-gray-900 mb-2">Custom Headers (set by middleware):</h4>
-                  <div className="bg-gray-50 p-3 rounded text-sm space-y-1">
+                  <div className="bg-gray-50 p-3 rounded text-sm space-y-1 text-gray-900">
                     {Object.entries(requestInfo.headers)
                       .filter(([key]) => key.startsWith('x-'))
                       .map(([key, value]) => (
@@ -128,7 +157,7 @@ export default function MiddlewareDemoPage() {
 
                 <div>
                   <h4 className="font-medium text-gray-900 mb-2">All Headers:</h4>
-                  <div className="bg-gray-50 p-3 rounded text-sm max-h-40 overflow-y-auto">
+                  <div className="bg-gray-50 p-3 rounded text-sm max-h-40 overflow-y-auto text-gray-900">
                     {Object.entries(requestInfo.headers).map(([key, value]) => (
                       <p key={key} className="text-xs">
                         <strong>{key}:</strong> {value}
@@ -137,9 +166,7 @@ export default function MiddlewareDemoPage() {
                   </div>
                 </div>
               </div>
-            ) : (
-              <p className="text-red-600">Failed to load request information</p>
-            )}
+            ) : null}
           </div>
         </div>
       </div>

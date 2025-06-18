@@ -123,13 +123,15 @@ export default function ApiPage() {
                     >
                       {endpoint.method}
                     </span>
-                    <code className="text-sm bg-gray-100 px-2 py-1 rounded">{endpoint.path}</code>
+                    <code className="text-sm bg-gray-100 px-2 py-1 rounded text-gray-900">{endpoint.path}</code>
                   </div>
                   <p className="text-sm text-green-700">{endpoint.description}</p>
                   {endpoint.example && (
                     <details className="mt-2">
                       <summary className="text-xs text-green-600 cursor-pointer">Usage Example</summary>
-                      <pre className="text-xs bg-gray-100 p-2 rounded mt-1 overflow-x-auto">{endpoint.example}</pre>
+                      <pre className="text-xs bg-gray-100 p-2 rounded mt-1 overflow-x-auto text-gray-900">
+                        {endpoint.example}
+                      </pre>
                     </details>
                   )}
                 </div>
@@ -146,7 +148,7 @@ export default function ApiPage() {
               <div>
                 <label className="block text-sm font-medium text-gray-700 mb-2">Select endpoint:</label>
                 <select
-                  className="w-full p-2 border border-gray-300 rounded-md"
+                  className="w-full p-2 border border-gray-300 rounded-md text-gray-700"
                   onChange={e => {
                     const endpoint = apiEndpoints[parseInt(e.target.value)];
                     setSelectedEndpoint(endpoint);
@@ -167,7 +169,7 @@ export default function ApiPage() {
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Request Body (JSON):</label>
                   <textarea
-                    className="w-full p-2 border border-gray-300 rounded-md h-32 font-mono text-sm"
+                    className="w-full p-2 border border-gray-300 rounded-md h-32 font-mono text-sm text-gray-700"
                     value={requestBody}
                     onChange={e => setRequestBody(e.target.value)}
                     placeholder='{"name": "John Doe", "email": "john@example.com"}'
@@ -186,7 +188,7 @@ export default function ApiPage() {
               {response && (
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">Response:</label>
-                  <pre className="w-full p-3 border border-gray-300 rounded-md bg-gray-50 text-sm overflow-x-auto max-h-64">
+                  <pre className="w-full p-3 border border-gray-300 rounded-md bg-gray-50 text-sm overflow-x-auto max-h-64 text-gray-900">
                     {response}
                   </pre>
                 </div>
@@ -209,7 +211,7 @@ export default function ApiPage() {
 
       <div className="bg-gray-50 p-4 rounded-lg">
         <h3 className="font-semibold text-gray-800 mb-2">Connection with other parts of the application:</h3>
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm">
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 text-sm text-gray-900">
           <div>
             <h4 className="font-medium text-gray-700">Home Page</h4>
             <p className="text-gray-600">Uses Server Components for data fetching</p>

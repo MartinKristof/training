@@ -18,25 +18,40 @@ export default function RootLayout({ children }: { children: ReactNode }) {
       <body className={inter.className}>
         <div className="min-h-screen bg-gray-50">
           <nav className="bg-white shadow-sm">
-            <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="max-w-7xl mx-auto px-2 sm:px-4 lg:px-8">
               <div className="flex justify-between h-16">
                 <div className="flex">
-                  <div className="flex-shrink-0 flex items-center">
-                    <h1 className="text-xl font-bold text-gray-900">Next.js 15 Complete Guide</h1>
+                  <div className="shrink-0 flex items-center">
+                    <h1 className="text-xl font-bold text-gray-900 whitespace-nowrap">Next.js 15 Complete Guide</h1>
                   </div>
                 </div>
-                <div className="flex items-center space-x-4">
+                <div className="flex items-center space-x-2 sm:space-x-4 overflow-x-auto whitespace-nowrap scrollbar-thin scrollbar-thumb-gray-300 scrollbar-track-gray-100 px-1">
                   <Link href="/" className="text-gray-500 hover:text-gray-700">
                     Home
                   </Link>
-                  <Link href="/api" className="text-gray-500 hover:text-gray-700">
-                    API
+                  <Link href="/server-component" className="text-gray-500 hover:text-gray-700">
+                    Server Component
+                  </Link>
+                  <Link href="/client-component" className="text-gray-500 hover:text-gray-700">
+                    Client Component
+                  </Link>
+                  <Link href="/client-data-fetching" className="text-gray-500 hover:text-gray-700">
+                    Client Data Fetching
+                  </Link>
+                  <Link href="/user-form-server-action" className="text-gray-500 hover:text-gray-700">
+                    User Form (Server Action)
+                  </Link>
+                  <Link href="/runtime-demo" className="text-gray-500 hover:text-gray-700">
+                    Runtime Demo
                   </Link>
                   <Link href="/blog" className="text-gray-500 hover:text-gray-700">
                     Blog
                   </Link>
                   <Link href="/dashboard" className="text-gray-500 hover:text-gray-700">
                     Dashboard
+                  </Link>
+                  <Link href="/api" className="text-gray-500 hover:text-gray-700">
+                    API
                   </Link>
                 </div>
               </div>
