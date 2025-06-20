@@ -10,6 +10,7 @@ export function middleware(request: NextRequest) {
   response.headers.set('x-powered-by', 'Next.js 15');
 
   // Log all requests (in production, you'd use a proper logging service)
+  // eslint-disable-next-line no-console
   console.log(`[${new Date().toISOString()}] ${request.method} ${path}`);
 
   // Example: Authentication check for protected routes

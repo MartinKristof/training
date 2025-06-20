@@ -10,7 +10,15 @@ const userSchema = z.object({
   email: z.string().email('Invalid email address'),
 });
 
-async function clientAction(_, formData: FormData) {
+type FormActionState = {
+  fieldErrors?: Record<string, string>;
+  error?: string;
+  success?: string;
+  name?: string;
+  email?: string;
+};
+
+async function clientAction(_: FormActionState, formData: FormData) {
   const name = formData.get('name') as string;
   const email = formData.get('email') as string;
   const parsed = userSchema.safeParse({ name, email });
@@ -29,7 +37,7 @@ async function clientAction(_, formData: FormData) {
 }
 
 export default function UserFormServerActionPage() {
-  const [state, formAction, isPending] = useActionState(clientAction, {}, undefined);
+  const [state, formAction, isPending] = useActionState<FormActionState, FormData>(clientAction, {});
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50">

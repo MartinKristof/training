@@ -87,6 +87,10 @@ export default function Home() {
               <h3 className="font-semibold text-gray-900">Middleware</h3>
               <p className="text-sm text-gray-700">Request/response modification</p>
             </Link>
+            <Link href="/database-demo" className="bg-gray-100 p-4 rounded-lg hover:bg-gray-200 transition-colors">
+              <h3 className="font-semibold text-gray-900">Database Demo</h3>
+              <p className="text-sm text-gray-700">Prisma + SQLite server-side data fetching</p>
+            </Link>
           </div>
         </div>
 

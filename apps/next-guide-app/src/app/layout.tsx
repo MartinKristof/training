@@ -53,6 +53,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                   <Link href="/api" className="text-gray-500 hover:text-gray-700">
                     API
                   </Link>
+                  <Link href="/database-demo" className="text-gray-500 hover:text-gray-700">
+                    Database Demo
+                  </Link>
+                  <Link href="/progressive-enhancement-form" className="text-gray-500 hover:text-gray-700">
+                    Progressive Enhancement Form
+                  </Link>
                 </div>
               </div>
             </div>

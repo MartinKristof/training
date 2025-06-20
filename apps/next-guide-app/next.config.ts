@@ -1,5 +1,7 @@
 import type { NextConfig } from 'next';
 
+// Environment variables are now managed via .env files. See: https://nextjs.org/docs/pages/guides/environment-variables
+
 const nextConfig: NextConfig = {
   // Enable experimental features
   experimental: {
@@ -10,17 +12,13 @@ const nextConfig: NextConfig = {
     // typedRoutes: true, // without turbopack
     // Enable partial prerendering
     // ppr: true,
+    reactCompiler: true,
   },
 
   // Image optimization
   images: {
     domains: ['jsonplaceholder.typicode.com'],
     formats: ['image/webp', 'image/avif'],
-  },
-
-  // Environment variables
-  env: {
-    CUSTOM_KEY: 'custom-value',
   },
 
   // Headers configuration
@@ -81,7 +79,6 @@ const nextConfig: NextConfig = {
   // Compiler configuration
   compiler: {
     // Remove console.logs in production
-    // eslint-disable-next-line no-undef
     removeConsole: process.env.NODE_ENV === 'production',
   },
 

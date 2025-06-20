@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 'use client';
 
 import { useEffect } from 'react';
@@ -11,6 +10,7 @@ interface ErrorProps {
 export default function Error({ error, reset }: ErrorProps) {
   useEffect(() => {
     // Log the error to an error reporting service
+    // eslint-disable-next-line no-console
     console.error('Application error:', error);
   }, [error]);
 

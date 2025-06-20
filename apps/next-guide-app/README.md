@@ -35,6 +35,20 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 - **API Routes**: Complete REST API with CRUD operations
 - **Middleware Demo**: Interactive demonstration of middleware features
 
+## Environment Variables
+
+This project uses [Next.js environment variables](https://nextjs.org/docs/pages/guides/environment-variables) via `.env` files. To add your own variables, create a `.env` or `.env.local` file in the `apps/next-guide-app` directory:
+
+```
+MY_SECRET_KEY=your-secret-value
+NEXT_PUBLIC_API_URL=https://api.example.com
+```
+
+- Variables prefixed with `NEXT_PUBLIC_` are exposed to the browser.
+- All other variables are only available on the server.
+
+**Do not commit secrets to version control!**
+
 ## Learn More
 
 To learn more about Next.js, take a look at the following resources:

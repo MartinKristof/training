@@ -1,13 +1,12 @@
 export default async function RuntimeDemoPage() {
-  // Use process.env.NEXT_PUBLIC_BASE_URL if available, otherwise fallback to localhost
-  // eslint-disable-next-line no-undef
-  const baseUrl = process.env.NEXT_PUBLIC_BASE_URL || 'http://localhost:3000';
-  const [nodeRes, edgeRes] = await Promise.all([
-    fetch(`${baseUrl}/api/runtime-node`),
-    fetch(`${baseUrl}/api/runtime-edge`),
-  ]);
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+  const [nodeRes, edgeRes] = await Promise.all([fetch(`${baseUrl}/runtime-node`), fetch(`${baseUrl}/runtime-edge`)]);
   const nodeData = await nodeRes.json();
   const edgeData = await edgeRes.json();
+
+  // Example: Read environment variables
+  const publicVar = process.env.NEXT_PUBLIC_EXAMPLE || 'Not set';
+  const serverVar = process.env.EXAMPLE_SECRET ? 'Set (server only)' : 'Not set';
 
   return (
     <div className="max-w-3xl mx-auto py-8 px-4 space-y-8">
@@ -54,6 +53,15 @@ export default async function RuntimeDemoPage() {
             • <strong>Edge runtime:</strong> Suitable for simple, fast APIs, authentication, A/B testing, geo-routing
           </li>
         </ul>
+      </div>
+      <div className="bg-yellow-50 p-4 rounded-lg mt-8">
+        <h3 className="font-semibold text-yellow-800 mb-2 text-base">Environment Variable Example</h3>
+        <p className="text-yellow-800 text-sm mb-1">
+          <strong>NEXT_PUBLIC_EXAMPLE</strong> (public): <code>{publicVar}</code>
+        </p>
+        <p className="text-yellow-800 text-sm">
+          <strong>EXAMPLE_SECRET</strong> (server only): <code>{serverVar}</code>
+        </p>
       </div>
     </div>
   );

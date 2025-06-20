@@ -1,4 +1,3 @@
-/* eslint-disable no-undef */
 'use client';
 
 import { useEffect } from 'react';
@@ -11,6 +10,7 @@ interface GlobalErrorProps {
 export default function GlobalError({ error, reset }: GlobalErrorProps) {
   useEffect(() => {
     // Log the error to an error reporting service
+    // eslint-disable-next-line no-console
     console.error('Global application error:', error);
   }, [error]);
 
