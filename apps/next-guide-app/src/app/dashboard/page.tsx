@@ -1,4 +1,11 @@
 import { Suspense } from 'react';
+import MyButton from '../_components/MyButton';
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Dashboard',
+  description: 'Your dashboard overview',
+};
 
 // Simulate database connection
 async function getDashboardData() {
@@ -107,27 +114,31 @@ async function DashboardStats() {
 
 export default function DashboardPage() {
   return (
-    <Suspense
-      fallback={
-        <div className="space-y-6">
-          <div className="animate-pulse">
-            <div className="h-8 bg-gray-200 rounded w-1/3 mb-4"></div>
-            <div className="h-4 bg-gray-200 rounded w-2/3 mb-6"></div>
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {[...Array(4)].map((_, i) => (
-              <div key={i} className="bg-white p-6 rounded-lg shadow-sm border">
-                <div className="animate-pulse">
-                  <div className="h-4 bg-gray-200 rounded w-1/2 mb-2"></div>
-                  <div className="h-8 bg-gray-200 rounded w-1/3"></div>
+    <div>
+      <h1>Dashboard Home</h1>
+      <MyButton />
+      <Suspense
+        fallback={
+          <div className="space-y-6">
+            <div className="animate-pulse">
+              <div className="h-8 bg-gray-200 rounded w-1/3 mb-4"></div>
+              <div className="h-4 bg-gray-200 rounded w-2/3 mb-6"></div>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
+              {[...Array(4)].map((_, i) => (
+                <div key={i} className="bg-white p-6 rounded-lg shadow-sm border">
+                  <div className="animate-pulse">
+                    <div className="h-4 bg-gray-200 rounded w-1/2 mb-2"></div>
+                    <div className="h-8 bg-gray-200 rounded w-1/3"></div>
+                  </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
-        </div>
-      }
-    >
-      <DashboardStats />
-    </Suspense>
+        }
+      >
+        <DashboardStats />
+      </Suspense>
+    </div>
   );
 }

@@ -2,15 +2,12 @@ import Form from 'next/form';
 import { createUserAction } from './server-actions';
 import { prisma } from '../../lib/prisma';
 
-export default async function ProgressiveEnhancementFormPage({
-  searchParams,
-}: {
-  searchParams?: Record<string, string>;
-}) {
-  const error = searchParams?.error ? JSON.parse(searchParams.error) : undefined;
-  const name = searchParams?.name || '';
-  const email = searchParams?.email || '';
-  const success = searchParams?.success || '';
+export default async function ProgressiveEnhancementFormPage({ searchParams }) {
+  const params = await searchParams;
+  const error = params?.error ? JSON.parse(params.error) : undefined;
+  const name = params?.name || '';
+  const email = params?.email || '';
+  const success = params?.success || '';
 
   const users = await prisma.user.findMany({ orderBy: { id: 'desc' } });
 

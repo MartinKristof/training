@@ -129,9 +129,9 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 }
 
-export default async function BlogPost({ params }: { params: Promise<{ slug: string }> }) {
-  const { slug } = await params;
-  const post = posts.find(p => p.slug === slug);
+export default function BlogPostPage({ params }: { params: { slug: string } }) {
+  if (!params.slug) return notFound();
+  const post = posts.find(p => p.slug === params.slug);
 
   if (!post) {
     notFound();

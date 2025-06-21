@@ -50,6 +50,9 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                   <Link href="/dashboard" className="text-gray-500 hover:text-gray-700">
                     Dashboard
                   </Link>
+                  <Link href="/about" className="text-gray-500 hover:text-gray-700">
+                    About (Marketing)
+                  </Link>
                   <Link href="/api" className="text-gray-500 hover:text-gray-700">
                     API
                   </Link>
@@ -58,6 +61,27 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                   </Link>
                   <Link href="/progressive-enhancement-form" className="text-gray-500 hover:text-gray-700">
                     Progressive Enhancement Form
+                  </Link>
+                  <Link href="/ssg-demo" className="text-gray-500 hover:text-gray-700">
+                    SSG Demo
+                  </Link>
+                  <Link href="/caching-demo" className="text-gray-500 hover:text-gray-700">
+                    Caching Demo
+                  </Link>
+                  <Link href="/instrumentation-demo" className="text-gray-500 hover:text-gray-700">
+                    Instrumentation Demo
+                  </Link>
+                  <Link href="/docs/a/b/c" className="text-gray-500 hover:text-gray-700">
+                    Docs (Catch-all)
+                  </Link>
+                  <Link href="/optional-catch-all" className="text-gray-500 hover:text-gray-700">
+                    Optional Catch-all
+                  </Link>
+                  <Link href="/parallel-demo" className="text-gray-500 hover:text-gray-700">
+                    Parallel Routes Demo
+                  </Link>
+                  <Link href="/conditional-routes-demo/user" className="text-gray-500 hover:text-gray-700">
+                    Conditional Routes
                   </Link>
                 </div>
               </div>
