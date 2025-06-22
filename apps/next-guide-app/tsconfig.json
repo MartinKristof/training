@@ -21,7 +21,8 @@
     "baseUrl": "src",
     "paths": {
       "@/lib/*": ["lib/*"]
-    }
+    },
+    "strictNullChecks": true
   },
   "include": ["next-env.d.ts", ".next/types/**/*.ts", "**/*.ts", "**/*.tsx"],
   "exclude": ["node_modules"]

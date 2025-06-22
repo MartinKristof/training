@@ -91,6 +91,14 @@ export default function Home() {
               <h3 className="font-semibold text-gray-900">Database Demo</h3>
               <p className="text-sm text-gray-700">Prisma + SQLite server-side data fetching</p>
             </Link>
+            <Link href="/image-demo" className="bg-gray-100 p-4 rounded-lg hover:bg-gray-200 transition-colors">
+              <h3 className="font-semibold text-gray-900">Image Component</h3>
+              <p className="text-sm text-gray-700">next/image examples</p>
+            </Link>
+            <Link href="/mdx-demo" className="bg-gray-100 p-4 rounded-lg hover:bg-gray-200 transition-colors">
+              <h3 className="font-semibold text-gray-900">MDX Demo</h3>
+              <p className="text-sm text-gray-700">Markdown + JSX + Next.js</p>
+            </Link>
           </div>
         </div>
 

@@ -1,4 +1,5 @@
 import type { NextConfig } from 'next';
+import createMDX from '@next/mdx';
 
 // Environment variables are now managed via .env files. See: https://nextjs.org/docs/pages/guides/environment-variables
 
@@ -17,7 +18,16 @@ const nextConfig: NextConfig = {
 
   // Image optimization
   images: {
-    domains: ['jsonplaceholder.typicode.com'],
+    remotePatterns: [
+      {
+        protocol: 'https',
+        hostname: 'images.unsplash.com',
+      },
+      {
+        protocol: 'https',
+        hostname: 'jsonplaceholder.typicode.com',
+      },
+    ],
     formats: ['image/webp', 'image/avif'],
   },
 
@@ -120,6 +130,10 @@ const nextConfig: NextConfig = {
 
   // Configure server components
   serverExternalPackages: ['mongodb'],
+
+  pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
 };
 
-export default nextConfig;
+const withMDX = createMDX();
+
+export default withMDX(nextConfig);
