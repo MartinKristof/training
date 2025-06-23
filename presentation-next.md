@@ -225,6 +225,8 @@ export default function Navigation() {
 }
 ```
 
+---
+
 - For advanced use cases, you can use the `useRouter`, `usePathname`, and `useSearchParams` hooks from `next/navigation`.
 - [Official documentation: Linking and Navigating](https://nextjs.org/docs/app/getting-started/linking-and-navigating)
 
@@ -239,6 +241,18 @@ export default function Navigation() {
     - [SSR example](apps/next-guide-pages/pages/ssr.tsx) ([/ssr](http://localhost:3001/ssr))
   - **SSG (Static Site Generation):** Use `getStaticProps` (and optionally `getStaticPaths`) to pre-render pages at build time.
     - [SSG example](apps/next-guide-pages/pages/ssg.tsx) ([/ssg](http://localhost:3001/ssg))
+
+---
+
+**getStaticPaths fallback options:**
+
+- `fallback: false` – Only the paths returned by getStaticPaths are generated at build time. Any other route will show a 404 page.
+- `fallback: true` – New paths not returned by getStaticPaths will be rendered on-demand on the first request, then cached for future requests. The page will show a loading state until the content is generated.
+- `fallback: 'blocking'` – New paths are rendered on-demand like `true`, but the user will not see a loading state; the server waits until the page is generated and then serves the full page.
+
+Use `false` for small/finite sets of pages, `true` or `'blocking'` for large or dynamic sets where not all paths are known at build time.
+
+- [getStaticPaths details](https://nextjs.org/docs/pages/building-your-application/data-fetching/get-static-props#when-does-getstaticprops-run)
 
 ---
 

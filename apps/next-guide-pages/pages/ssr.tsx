@@ -1,12 +1,8 @@
 import React from 'react';
-import { GetServerSideProps } from 'next';
+import { GetServerSideProps, InferGetServerSidePropsType } from 'next';
 import { User } from '@/lib/data';
 
-interface SsrProps {
-  users: User[];
-}
-
-export default function SsrPage({ users }: SsrProps) {
+export default function SsrPage({ users }: InferGetServerSidePropsType<typeof getServerSideProps>) {
   return (
     <div className="bg-white p-6 rounded-lg shadow-md">
       <h1 className="text-2xl font-bold mb-4">Server-Side Rendering (SSR)</h1>
@@ -50,13 +46,20 @@ export default function SsrPage({ users }: SsrProps) {
   );
 }
 
-export const getServerSideProps: GetServerSideProps = async () => {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users`);
+export const getServerSideProps = (async () => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users`);
   const users: User[] = await res.json();
+
+  console.log(users);
+  if (!users) {
+    return {
+      notFound: true,
+    };
+  }
 
   return {
     props: {
       users,
     },
   };
-};
+}) satisfies GetServerSideProps<{ users: User[] }>;

@@ -1,12 +1,8 @@
 import React from 'react';
-import { GetStaticProps } from 'next';
+import { GetServerSideProps, InferGetStaticPropsType } from 'next';
 import { User } from '@/lib/data';
 
-interface SsgProps {
-  users: User[];
-}
-
-export default function SsgPage({ users }: SsgProps) {
+export default function SsgPage({ users }: InferGetStaticPropsType<typeof getStaticProps>) {
   return (
     <div className="bg-white p-6 rounded-lg shadow-md">
       <h1 className="text-2xl font-bold mb-4">Static Site Generation (SSG)</h1>
@@ -51,22 +47,19 @@ export default function SsgPage({ users }: SsgProps) {
   );
 }
 
-export const getStaticProps: GetStaticProps = async () => {
-  // In a real app, you'd fetch from an external API.
-  // For this demo, we're fetching from our own API route.
-  try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users`);
-    const users: User[] = await res.json();
+export const getStaticProps = (async () => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users`);
+  const users: User[] = await res.json();
 
+  if (!users) {
     return {
-      props: {
-        users,
-      },
-    };
-  } catch (error) {
-    console.error('Error fetching users:', error);
-    return {
-      notFound: true, // Return a 404 page if the data fetch fails
+      notFound: true,
     };
   }
-};
+
+  return {
+    props: {
+      users,
+    },
+  };
+}) satisfies GetServerSideProps<{ users: User[] }>;

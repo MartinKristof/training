@@ -1,13 +1,9 @@
 import React from 'react';
-import { GetStaticPaths, GetStaticProps } from 'next';
+import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 import { useRouter } from 'next/router';
 import { User } from '@/lib/data';
 
-interface UserPageProps {
-  user: User;
-}
-
-export default function UserPage({ user }: UserPageProps) {
+export default function UserPage({ user }: InferGetStaticPropsType<typeof getStaticProps>) {
   const router = useRouter();
 
   if (router.isFallback) {
@@ -62,29 +58,24 @@ export default function UserPage({ user }: UserPageProps) {
   );
 }
 
-export const getStaticPaths: GetStaticPaths = async () => {
-  try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users`);
-    const users: User[] = await res.json();
+export const getStaticPaths = (async () => {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users`);
+  const users: User[] = await res.json();
 
-    const paths = users.map(user => ({
-      params: { id: String(user.id) },
-    }));
+  const paths = users.map(user => ({
+    params: { id: String(user.id) },
+  }));
 
-    return {
-      paths,
-      fallback: false, // All paths are known at build time
-    };
-  } catch (error) {
-    console.error('Error fetching users for static paths:', error);
-    return {
-      paths: [],
-      fallback: false, // If there's an error, return no paths
-    };
-  }
-};
+  return {
+    paths,
+    fallback: false, // All paths are known at build time
+    // Set to 'true' or 'blocking' if you want to allow new paths to be generated at runtime
+    // fallback: true, // Uncomment this line to enable fallback mode
+    // fallback: 'blocking', // Uncomment this line to enable blocking fallback mode
+  };
+}) satisfies GetStaticPaths;
 
-export const getStaticProps: GetStaticProps = async ({ params }) => {
+export const getStaticProps = (async ({ params }) => {
   const id = params?.id as string;
   if (!id) {
     return {
@@ -92,25 +83,18 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
     };
   }
 
-  try {
-    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/${id}`);
-    const user: User = await res.json();
+  const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/${id}`);
+  const user: User = await res.json();
 
-    if (!user) {
-      return {
-        notFound: true,
-      };
-    }
-
-    return {
-      props: {
-        user,
-      },
-    };
-  } catch (error) {
-    console.error('Error fetching user:', error);
+  if (!user) {
     return {
       notFound: true,
     };
   }
-};
+
+  return {
+    props: {
+      user,
+    },
+  };
+}) satisfies GetStaticProps<{ user: User }>;
