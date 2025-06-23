@@ -96,7 +96,7 @@ const nextConfig: NextConfig = {
   },
 
   // Output configuration
-  output: 'standalone',
+  // output: 'standalone',
 
   // Trailing slash configuration
   trailingSlash: false,

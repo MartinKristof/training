@@ -354,9 +354,48 @@ Server Components are rendered on the server and sent as HTML to the client, whi
 
 - Use `cache: 'no-store'` to always fetch fresh data (SSR)
 
-**Demo:**
+---
+
+**Controlling static/dynamic rendering with `dynamic` export:**
+
+- In App Router, you can control how a route is rendered and cached using the `dynamic` export at the top of your file:
+
+  ```js
+  // page.tsx, layout.tsx, or route.ts
+  export const dynamic = 'auto'; // (default) Next.js decides based on usage
+  // or
+  export const dynamic = 'force-static'; // always statically render and cache
+  // or
+  export const dynamic = 'force-dynamic'; // always render on the server, no cache
+  ```
+
+- **'auto'** (default): Next.js chooses static or dynamic based on your code (e.g. use of fetch, cookies, headers).
+- **'force-static'**: Forces static rendering and caching, even if you use dynamic code (errors if truly dynamic).
+- **'force-dynamic'**: Forces server-side rendering on every request, disables all caching.
+
+---
+
+Use these options to fine-tune performance and cache behavior for each route.
+
+[Dashboard page example](apps/next-guide-app/src/app/dashboard/page.tsx) ([/dashboard](http://localhost:3000/dashboard)) - see build report
+[Docs: Static and Dynamic Rendering](https://nextjs.org/docs/app/building-your-application/rendering/static-and-dynamic-rendering)
+
+**Demos:**
 
 - [Caching demo](apps/next-guide-app/src/app/caching-demo/page.tsx)([/caching-demo/](http://localhost:3000/caching-demo/))
+
+---
+
+**Note on combining `dynamic` and `revalidate`:**
+
+- `revalidate` only has an effect when the route is statically rendered (default or `force-static`).
+- If you set `dynamic = 'force-dynamic'`, any `revalidate` value is ignored—every request is always rendered on the server, no cache.
+- Example:
+  ```js
+  export const dynamic = 'force-dynamic';
+  export const revalidate = 60; // This will be ignored
+  ```
+- Use `revalidate` for Incremental Static Regeneration (ISR) with static routes, not with `force-dynamic`.
 
 ---
 
@@ -715,7 +754,25 @@ Next.js allows you to configure various aspects of your application using the `n
 
 - Mode settings (strict mode, experimental features)
 - Image, headers, file types, build options
+- **assetPrefix**: Set a custom prefix for serving static assets (e.g. from a CDN).
+- **basePath**: Serve your app from a subpath (e.g. `/docs` or `/app`).
 - **Redirects and Rewrites**
+
+---
+
+**Example:**
+
+```js
+// next.config.ts
+const nextConfig: NextConfig = {
+  assetPrefix: 'https://cdn.example.com', // serve static assets from CDN
+  basePath: '/docs', // app will be served from https://yourdomain.com/docs
+};
+```
+
+Use `assetPrefix` when deploying static assets to a CDN. Use `basePath` when your app is not at the root of the domain.
+
+---
 
 ## Redirects and Rewrites
 
@@ -781,13 +838,59 @@ See more in the file: [next.config.ts – source code](apps/next-guide-app/next.
   - [MDX demo](apps/next-guide-app/src/app/mdx-demo/page.mdx)
   - [MDX layout](apps/next-guide-app/src/app/mdx-demo/layout.tsx) ([/mdx-demo](http://localhost:3000/mdx-demo))
   - [MDX components](apps/next-guide-app/src/app/mdx-components.tsx) ([/mdx-demo](http://localhost:3000/mdx-demo))
+
+---
+
 - **Image Component:**
+
   - [Image demo](apps/next-guide-app/src/app/image-demo/page.tsx) ([/image-demo](http://localhost:3000/image-demo))
+
+  > **Note:** If you want to load images from external domains, you must add those domains to `remotePatterns` in your `next.config.ts`:
+  >
+  > ```js
+  > // next.config.ts
+  > images: {
+  >   remotePatterns: [
+  >     {
+  >       protocol: 'https',
+  >       hostname: 'images.unsplash.com',
+  >     },
+  >   ],
+  > },
+  > ```
+  >
+  > Otherwise, images from those domains will not load and Next.js will show an error.
+
+---
+
 - **Shared Components:**
   - [Counter component](apps/next-guide-app/src/app/components/Counter.tsx)
-  - Use a `/components` or `/_components` folder for reusable UI (best practice)
+  - Use a `/components` or `/_components` (private - non-routable) folder for reusable UI (best practice)
 - **Public Assets:**
   - Use the `/public` folder for static assets (images, favicon, etc.) ([public/](apps/next-guide-app/public/))
+
+---
+
+# What was not covered
+
+Some advanced or less common Next.js topics are not covered in detail in this presentation:
+
+- **Internationalization (i18n)** – [Docs](https://nextjs.org/docs/app/building-your-application/routing/internationalization)
+- **Route Interception & Modals** – [Docs](https://nextjs.org/docs/app/building-your-application/routing/intercepting-routes)
+- **Partial Prerendering** – [Docs](https://nextjs.org/docs/app/api-reference/config/next-config-js/ppr#using-partial-prerendering)
+- **Advanced Metadata & SEO** (OpenGraph, dynamic metadata) – [Docs](https://nextjs.org/docs/app/building-your-application/optimizing/metadata)
+- **Testing (unit, e2e, integration)** – [Docs](https://nextjs.org/docs/pages/building-your-application/testing)
+- **Analytics & Monitoring** – [Docs](https://nextjs.org/docs/app/building-your-application/optimizing/analytics)
+
+---
+
+- **Deployment to Vercel/Netlify/Cloud** – [Docs](https://nextjs.org/docs/app/getting-started/deploying)
+- **Security, CORS, API rate limiting** – [Docs](https://nextjs.org/docs/app/guides/content-security-policy), [CORS Docs](https://nextjs.org/docs/app/api-reference/file-conventions/middleware#cors)
+- **Custom Webpack/Babel config** – [Docs](https://nextjs.org/docs/app/api-reference/config/next-config-js/webpack)
+- **Static Export (`next export`)** – [Docs](https://nextjs.org/docs/app/getting-started/deploying#static-export)
+- **Multi-zones** – [Docs](https://nextjs.org/docs/app/guides/multi-zones)
+
+For a full overview, see the [Next.js Documentation](https://nextjs.org/docs).
 
 ---
 
