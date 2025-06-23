@@ -17,7 +17,7 @@
     "react-router": "^7.5.3",
     "sass": "^1.89.1",
     "styled-components": "^6.1.18",
-    "zod": "^3.25.56"
+    "zod": "^3.25.67"
   },
   "devDependencies": {
     "@tailwindcss/vite": "^4.1.4",
