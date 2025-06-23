@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 // import { registerOTel } from 'next/otel';
 
 export function register() {

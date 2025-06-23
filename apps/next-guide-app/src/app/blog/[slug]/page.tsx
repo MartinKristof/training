@@ -1,5 +1,7 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 // Mock blog posts data
 const posts = [
@@ -8,24 +10,24 @@ const posts = [
     slug: 'getting-started-with-nextjs',
     title: 'Getting Started with Next.js 15',
     content: `
-      Next.js 15 is the latest version of the React framework that brings many exciting features.
-      
-      ## Key Features
-      
-      - **App Router**: The new file-system based router
-      - **Server Components**: React components that run on the server
-      - **Partial Prerendering**: Hybrid rendering approach
-      - **Improved Performance**: Better caching and optimization
-      
-      ## Getting Started
-      
-      To create a new Next.js 15 project, run:
-      
-      \`\`\`bash
-      npx create-next-app@latest my-app
-      \`\`\`
-      
-      This will set up a new project with all the latest features enabled.
+Next.js 15 is the latest version of the React framework that brings many exciting features.
+
+## Key Features
+
+- **App Router**: The new file-system based router
+- **Server Components**: React components that run on the server
+- **Partial Prerendering**: Hybrid rendering approach
+- **Improved Performance**: Better caching and optimization
+
+## Getting Started
+
+To create a new Next.js 15 project, run:
+
+\`\`\`bash
+npx create-next-app@latest my-app
+\`\`\`
+
+This will set up a new project with all the latest features enabled.
     `,
     date: '2024-01-15',
     author: 'Martin Krištof',
@@ -35,33 +37,33 @@ const posts = [
     slug: 'server-components-vs-client-components',
     title: 'Server Components vs Client Components',
     content: `
-      Understanding the difference between Server and Client Components is crucial for building efficient Next.js applications.
+Understanding the difference between Server and Client Components is crucial for building efficient Next.js applications.
+
+## Server Components
       
-      ## Server Components
-      
-      - Run on the server
-      - No JavaScript sent to the client
-      - Can access databases and file systems
-      - Better performance and SEO
-      
-      ## Client Components
-      
-      - Run in the browser
-      - Can use React hooks and event handlers
-      - Interactive and dynamic
-      - Use 'use client' directive
-      
-      ## When to Use Each
-      
-      Use Server Components for:
-      - Data fetching
-      - Static content
-      - SEO-critical pages
-      
-      Use Client Components for:
-      - Interactivity
-      - Event handlers
-      - Browser APIs
+- Run on the server
+- No JavaScript sent to the client
+- Can access databases and file systems
+- Better performance and SEO
+
+## Client Components
+
+- Run in the browser
+- Can use React hooks and event handlers
+- Interactive and dynamic
+- Use 'use client' directive
+
+## When to Use Each
+
+Use Server Components for:
+- Data fetching
+- Static content
+- SEO-critical pages
+
+Use Client Components for:
+- Interactivity
+- Event handlers
+- Browser APIs
     `,
     date: '2024-01-20',
     author: 'Martin Krištof',
@@ -71,34 +73,34 @@ const posts = [
     slug: 'data-fetching-in-nextjs',
     title: 'Data Fetching in Next.js',
     content: `
-      Next.js provides multiple ways to fetch data, each optimized for different use cases.
-      
-      ## Fetch Function
-      
-      The built-in fetch function is enhanced with caching and revalidation:
-      
-      \`\`\`typescript
-      async function getData() {
-        const res = await fetch('https://api.example.com/data', {
-          next: { revalidate: 3600 } // Cache for 1 hour
-        });
-        return res.json();
-      }
-      \`\`\`
-      
-      ## Caching Strategies
-      
-      - **Static**: Data is cached at build time
-      - **Dynamic**: Data is fetched on each request
-      - **Revalidated**: Data is cached but revalidated periodically
-      
-      ## Database Connections
-      
-      Next.js supports various databases:
-      - PostgreSQL with Prisma
-      - MongoDB with Mongoose
-      - SQLite with Drizzle
-      - And many more...
+Next.js provides multiple ways to fetch data, each optimized for different use cases.
+
+## Fetch Function
+
+The built-in fetch function is enhanced with caching and revalidation:
+
+\`\`\`typescript
+async function getData() {
+const res = await fetch('https://api.example.com/data', {
+  next: { revalidate: 3600 } // Cache for 1 hour
+});
+return res.json();
+}
+\`\`\`
+
+## Caching Strategies
+
+- **Static**: Data is cached at build time
+- **Dynamic**: Data is fetched on each request
+- **Revalidated**: Data is cached but revalidated periodically
+
+## Database Connections
+
+Next.js supports various databases:
+- PostgreSQL with Prisma
+- MongoDB with Mongoose
+- SQLite with Drizzle
+- And many more...
     `,
     date: '2024-01-25',
     author: 'Martin Krištof',
@@ -129,9 +131,10 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   };
 }
 
-export default function BlogPostPage({ params }: { params: { slug: string } }) {
-  if (!params.slug) return notFound();
-  const post = posts.find(p => p.slug === params.slug);
+export default async function BlogPostPage({ params }: { params: Promise<{ slug: string }> }) {
+  const awaitedParams = await params;
+  if (!awaitedParams.slug) return notFound();
+  const post = posts.find(p => p.slug === awaitedParams.slug);
 
   if (!post) {
     notFound();
@@ -155,11 +158,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
           </header>
 
           <div className="prose prose-lg max-w-none">
-            {post.content.split('\n').map((paragraph, index) => (
-              <p key={index} className="mb-4 text-gray-700 leading-relaxed">
-                {paragraph}
-              </p>
-            ))}
+            <ReactMarkdown remarkPlugins={[remarkGfm]}>{post.content}</ReactMarkdown>
           </div>
         </article>
       </div>

@@ -4,6 +4,8 @@ A monorepo project demonstrating different approaches to routing in React applic
 
 - Data-driven routing approach
 - Declarative routing approach
+- Next.js Pages Router approach
+- Next.js App Router approach
 
 ## Tech Stack
 
@@ -13,6 +15,7 @@ A monorepo project demonstrating different approaches to routing in React applic
 - Yarn 4.6.0+ for package management
 - ESLint + Prettier for code quality
 - Husky for git hooks
+- Next.js
 
 ## Project Structure
 
@@ -21,6 +24,8 @@ This is a monorepo using Yarn workspaces, organized as follows:
 - `apps/` - Contains the routing implementation examples:
   - `data-way/` - Data-driven routing approach
   - `declarative-way/` - Declarative routing approach
+  - `apps/next-guide-app` – Next.js 15 App Router demo
+  - `apps/next-guide-pages` – Next.js 15 Pages Router demo
 - `packages/` - Shared packages:
   - `ui/` - Common UI components
 
@@ -69,7 +74,14 @@ This is a monorepo using Yarn workspaces, organized as follows:
    yarn build:ui
 ```
 
-3. Start the development server for a specific routing approach:
+3. Generate Prisma:
+
+````bash
+   yarn prisma:generate:next-gude-app
+``¨
+
+
+4. Start the development server for a specific routing approach:
 
    ```bash
    # For data-driven routing approach
@@ -77,12 +89,15 @@ This is a monorepo using Yarn workspaces, organized as follows:
 
    # For declarative routing approach
    yarn start:declarative-way
-   ```
+````
 
 ## Available Scripts
 
 - `yarn start:data-way` - Start the data-driven routing example
 - `yarn start:declarative-way` - Start the declarative routing example
+- `yarn start:next-guide-app` - Start the Next.js App Router example
+- `yarn start:next-guide-pages` - Start the Next.js Pages Router example
+- `prisma:generate:next-gude-app` - Generate Prisma client and other stufff
 - `yarn lint` - Run ESLint to check code quality
 - `yarn lint:fix` - Fix ESLint issues automatically
 - `yarn pretty` - Check code formatting with Prettier
@@ -98,6 +113,8 @@ For local development, you can use:
 yarn start:data-way
 # or with artificial delay
 yarn start:declarative-way
+yarn start:next-guide-app
+yarn start:next-guide-pages
 ```
 
 ## Contributing

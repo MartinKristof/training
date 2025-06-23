@@ -1,4 +1,5 @@
 import React from 'react';
+import Link from 'next/link';
 
 export default function HomePage() {
   return (
@@ -24,6 +25,51 @@ export default function HomePage() {
           <strong>CSR (Client-Side Rendering):</strong> Fetches data on the client using SWR.
         </li>
       </ul>
+      <div className="mt-8">
+        <h2 className="text-xl font-semibold mb-2">Demo Links</h2>
+        <ul className="list-disc pl-6 space-y-1">
+          <li>
+            <Link href="/ssg" className="text-blue-600 hover:underline">
+              SSG Demo
+            </Link>
+          </li>
+          <li>
+            <Link href="/ssr" className="text-blue-600 hover:underline">
+              SSR Demo
+            </Link>
+          </li>
+          <li>
+            <Link href="/csr" className="text-blue-600 hover:underline">
+              CSR Demo
+            </Link>
+          </li>
+          <li>
+            <Link href="/users/1" className="text-blue-600 hover:underline">
+              User Detail (Dynamic Route) + getStaticPaths
+            </Link>
+          </li>
+          <li>
+            <Link href="/api/users" className="text-blue-600 hover:underline">
+              API Route: /api/users
+            </Link>
+          </li>
+          <li>
+            <Link href="/404" className="text-blue-600 hover:underline">
+              Custom 404 Page
+            </Link>
+          </li>
+          <li>
+            <Link href="/500" className="text-blue-600 hover:underline">
+              Custom 500 Page
+            </Link>
+          </li>
+          <li>
+            <Link href="/api/users/1" className="text-blue-600 hover:underline">
+              API route
+            </Link>
+          </li>
+        </ul>
+      </div>
     </div>
   );
 }

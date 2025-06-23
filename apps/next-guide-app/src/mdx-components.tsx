@@ -1,6 +1,7 @@
 import type { MDXComponents } from 'mdx/types';
 import Image from 'next/image';
 import Link from 'next/link';
+import { highlight } from 'sugar-high';
 
 export function useMDXComponents(): MDXComponents {
   return {
@@ -34,6 +35,10 @@ export function useMDXComponents(): MDXComponents {
           {children}
         </a>
       );
+    },
+    code: ({ children, ...props }) => {
+      const codeHTML = highlight(children as string);
+      return <code dangerouslySetInnerHTML={{ __html: codeHTML }} {...props} />;
     },
   };
 }

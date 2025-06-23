@@ -53,8 +53,11 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                   <Link href="/about" className="text-gray-500 hover:text-gray-700">
                     About (Marketing)
                   </Link>
-                  <Link href="/api" className="text-gray-500 hover:text-gray-700">
-                    API
+                  <Link href="/api/users" className="text-gray-500 hover:text-gray-700">
+                    API Routes
+                  </Link>
+                  <Link href="/middleware-demo" className="text-gray-500 hover:text-gray-700">
+                    Middleware Demo
                   </Link>
                   <Link href="/database-demo" className="text-gray-500 hover:text-gray-700">
                     Database Demo
@@ -70,6 +73,12 @@ export default function RootLayout({ children }: { children: ReactNode }) {
                   </Link>
                   <Link href="/instrumentation-demo" className="text-gray-500 hover:text-gray-700">
                     Instrumentation Demo
+                  </Link>
+                  <Link href="/image-demo" className="text-gray-500 hover:text-gray-700">
+                    Image Demo
+                  </Link>
+                  <Link href="/mdx-demo" className="text-gray-500 hover:text-gray-700">
+                    MDX Demo
                   </Link>
                   <Link href="/docs/a/b/c" className="text-gray-500 hover:text-gray-700">
                     Docs (Catch-all)

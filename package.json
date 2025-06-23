@@ -15,6 +15,7 @@
     "start:declarative-way": "yarn manypkg run declarative-way dev",
     "start:next-guide-app": "yarn manypkg run next-guide-app dev",
     "start:next-guide-pages": "yarn manypkg run next-guide-pages dev",
+    "prisma:generate:next-gude-app": "yarn manypkg run next-guide-app prisma:generate",
     "prepare": "husky",
     "build:ui": "yarn manypkg run @training/ui build"
   },

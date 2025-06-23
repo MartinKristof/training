@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { useActionState } from 'react';
 import { createUser } from './server-actions';
 import { ErrorMessage, Input, Label } from '@training/ui';
+import { useEffect, useState } from 'react';
 
 const userSchema = z.object({
   name: z.string().min(3, 'Name must be at least 3 characters'),
@@ -38,9 +39,16 @@ async function clientAction(_: FormActionState, formData: FormData) {
 
 export default function UserFormServerActionPage() {
   const [state, formAction, isPending] = useActionState<FormActionState, FormData>(clientAction, {});
+  const [users, setUsers] = useState<{ name: string; email: string }[]>([]);
+
+  useEffect(() => {
+    fetch('/api/users', { next: { tags: ['users'] } })
+      .then(res => res.json())
+      .then(data => setUsers(data.users || []));
+  }, [state.success]); // refetch on successful create
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+    <div className="min-h-screen flex flex-col items-center justify-center bg-gray-50">
       <div className="w-full max-w-md py-10">
         <h1 className="text-3xl font-bold mb-8 text-gray-900">Create User (Server Action + useActionState + Zod)</h1>
         <form action={formAction} className="space-y-6 bg-white p-8 rounded-xl shadow-lg border">
@@ -82,6 +90,18 @@ export default function UserFormServerActionPage() {
           {state.error && <ErrorMessage>{String(state.error)}</ErrorMessage>}
           {state.success && <div className="text-green-600 mt-2 text-sm">{String(state.success)}</div>}
         </form>
+      </div>
+      <div className="w-full max-w-md mt-8 bg-white p-6 rounded-xl shadow border">
+        <h2 className="text-xl font-bold mb-4 text-gray-900">Users</h2>
+        <ul className="space-y-2">
+          {users.map((user, i) => (
+            <li key={i} className="flex flex-col border-b pb-2">
+              <span className="font-medium text-gray-800">{user.name}</span>
+              <span className="text-gray-500 text-sm">{user.email}</span>
+            </li>
+          ))}
+          {users.length === 0 && <li className="text-gray-500">No users found.</li>}
+        </ul>
       </div>
     </div>
   );

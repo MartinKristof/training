@@ -1,24 +1,45 @@
-# Next.js 15 Complete Guide
+# Next.js 15 Complete Guide - App Router
 
 This is a comprehensive Next.js 15 demonstration application that covers all essential concepts including App Router, Server Components, Data Fetching, Middleware, and more.
 
 ## Features Demonstrated
 
-- **File-Based Routing (App Router)**: Using the new App Router with file-system based routing
-- **Rendering**: Server Components, Client Components, SSR, SSG
-- **Data Fetching**: fetch function, caching, database connections
-- **Middleware**: Request/response modification, authentication
-- **Environments**: Node.js vs Edge Runtime
-- **Configuration**: next.config.js, instrumentation
+- **File-Based Routing (App Router)**: Modern routing with nested layouts, dynamic routes, catch-all and optional catch-all routes
+- **Rendering**: Server Components, Client Components, SSR (Server-Side Rendering), SSG (Static Site Generation), ISR (Incremental Static Regeneration), Partial Prerendering
+- **Data Fetching**: Native fetch with caching, ISR, client-side fetching, database access (Prisma), API routes (route handlers)
+- **Server Actions**: Mutations and forms with server actions, progressive enhancement
+- **Caching & Revalidation**: On-demand cache invalidation with `revalidateTag` and `revalidatePath`
+- **Middleware**: Request/response modification, authentication, custom headers
+- **Environments**: Node.js vs Edge Runtime, runtime switching
+- **Parallel & Conditional Routes**: Parallel routes, slots, conditional rendering by segment
+- **Error Handling**: Error boundaries, global error handling, not-found pages
+- **MDX Support**: Markdown + JSX pages and custom components
+- **Image Optimization**: Usage of the Next.js `<Image />` component
+- **Instrumentation**: Custom instrumentation hooks and OpenTelemetry integration
+- **Styling**: Tailwind CSS, global styles
+- **Public Assets**: Static files in `/public`
+- **Shared Components**: Reusable UI in `/components` and `/_components`
 
 ## Getting Started
 
-First, run the development server:
+Install dependencies from the monorepo root:
 
 ```bash
-npm run dev
-# or
+yarn install
+```
+
+Before starting the development server, generate the Prisma client:
+
+```bash
+yarn prisma:generate
+```
+
+Then run the development server for this app:
+
+```bash
 yarn dev
+# or
+npm run dev
 # or
 pnpm dev
 # or
@@ -30,10 +51,27 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 ## Application Structure
 
 - **Home Page**: Overview of all Next.js concepts with navigation
-- **Blog (SSG)**: Static site generation with dynamic routes
+- **Server Component Demo**: Pure server component rendering and data fetching
+- **Client Component Demo**: Pure client component with interactivity
+- **Client Data Fetching**: Fetching data on the client side
+- **User Form (Server Action)**: Form with server action, validation, and cache revalidation
+- **Progressive Enhancement Form**: Form that works with and without JavaScript
+- **Blog (SSG/ISR)**: Static site generation with dynamic routes and incremental regeneration
 - **Dashboard (SSR)**: Server-side rendering with real-time data
-- **API Routes**: Complete REST API with CRUD operations
+- **Database Demo**: Prisma + SQLite, server actions, and cache revalidation
+- **API Routes**: REST API with CRUD operations (route handlers)
 - **Middleware Demo**: Interactive demonstration of middleware features
+- **Runtime Demo**: Node.js vs Edge runtime switching
+- **Caching Demo**: Examples of fetch caching, ISR, and revalidation
+- **Instrumentation Demo**: Custom instrumentation and OpenTelemetry
+- **Image Demo**: Usage of the Next.js <Image /> component
+- **MDX Demo**: Markdown + JSX pages and custom components
+- **Parallel Routes Demo**: Parallel routes and slots
+- **Conditional Routes Demo**: Conditional rendering by route segment (e.g. user/admin)
+- **Catch-all & Optional Catch-all Routes**: Dynamic and optional catch-all routing
+- **Error Handling**: Error boundaries, global error, not-found pages
+- **Shared Components**: Reusable UI in /components and /\_components
+- **Public Assets**: Static files in /public
 
 ## Environment Variables
 
@@ -41,7 +79,8 @@ This project uses [Next.js environment variables](https://nextjs.org/docs/pages/
 
 ```
 MY_SECRET_KEY=your-secret-value
-NEXT_PUBLIC_API_URL=https://api.example.com
+DATABASE_URL="file:./dev.db"
+NEXT_PUBLIC_API_URL=http://localhost:3000/api
 ```
 
 - Variables prefixed with `NEXT_PUBLIC_` are exposed to the browser.

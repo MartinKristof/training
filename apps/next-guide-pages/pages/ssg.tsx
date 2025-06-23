@@ -55,7 +55,7 @@ export const getStaticProps: GetStaticProps = async () => {
   // In a real app, you'd fetch from an external API.
   // For this demo, we're fetching from our own API route.
   try {
-    const res = await fetch('http://localhost:3000/api/users');
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users`);
     const users: User[] = await res.json();
 
     return {

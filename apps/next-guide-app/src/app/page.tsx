@@ -72,32 +72,77 @@ export default function Home() {
               <p className="text-sm text-gray-700">Node.js vs Edge Runtime API example</p>
             </Link>
             <Link href="/blog" className="bg-gray-100 p-4 rounded-lg hover:bg-gray-200 transition-colors">
-              <h3 className="font-semibold text-gray-900">Blog (SSG)</h3>
+              <h3 className="font-semibold text-gray-900">Blog</h3>
               <p className="text-sm text-gray-700">Static site generation example</p>
             </Link>
             <Link href="/dashboard" className="bg-gray-100 p-4 rounded-lg hover:bg-gray-200 transition-colors">
-              <h3 className="font-semibold text-gray-900">Dashboard (SSR)</h3>
+              <h3 className="font-semibold text-gray-900">Dashboard</h3>
               <p className="text-sm text-gray-700">Server-side rendering example</p>
+            </Link>
+            <Link href="/about" className="bg-gray-100 p-4 rounded-lg hover:bg-gray-200 transition-colors">
+              <h3 className="font-semibold text-gray-900">About (Marketing)</h3>
+              <p className="text-sm text-gray-700">Marketing section using route groups</p>
             </Link>
             <Link href="/api/users" className="bg-gray-100 p-4 rounded-lg hover:bg-gray-200 transition-colors">
               <h3 className="font-semibold text-gray-900">API Routes</h3>
               <p className="text-sm text-gray-700">REST API endpoints</p>
             </Link>
             <Link href="/middleware-demo" className="bg-gray-100 p-4 rounded-lg hover:bg-gray-200 transition-colors">
-              <h3 className="font-semibold text-gray-900">Middleware</h3>
+              <h3 className="font-semibold text-gray-900">Middleware Demo</h3>
               <p className="text-sm text-gray-700">Request/response modification</p>
             </Link>
             <Link href="/database-demo" className="bg-gray-100 p-4 rounded-lg hover:bg-gray-200 transition-colors">
               <h3 className="font-semibold text-gray-900">Database Demo</h3>
               <p className="text-sm text-gray-700">Prisma + SQLite server-side data fetching</p>
             </Link>
+            <Link
+              href="/progressive-enhancement-form"
+              className="bg-gray-100 p-4 rounded-lg hover:bg-gray-200 transition-colors"
+            >
+              <h3 className="font-semibold text-gray-900">Progressive Enhancement Form</h3>
+              <p className="text-sm text-gray-700">Form works without JS, server actions</p>
+            </Link>
+            <Link href="/ssg-demo" className="bg-gray-100 p-4 rounded-lg hover:bg-gray-200 transition-colors">
+              <h3 className="font-semibold text-gray-900">SSG Demo</h3>
+              <p className="text-sm text-gray-700">Static Site Generation example</p>
+            </Link>
+            <Link href="/caching-demo" className="bg-gray-100 p-4 rounded-lg hover:bg-gray-200 transition-colors">
+              <h3 className="font-semibold text-gray-900">Caching Demo</h3>
+              <p className="text-sm text-gray-700">Caching and revalidation</p>
+            </Link>
+            <Link
+              href="/instrumentation-demo"
+              className="bg-gray-100 p-4 rounded-lg hover:bg-gray-200 transition-colors"
+            >
+              <h3 className="font-semibold text-gray-900">Instrumentation Demo</h3>
+              <p className="text-sm text-gray-700">Performance instrumentation</p>
+            </Link>
             <Link href="/image-demo" className="bg-gray-100 p-4 rounded-lg hover:bg-gray-200 transition-colors">
-              <h3 className="font-semibold text-gray-900">Image Component</h3>
+              <h3 className="font-semibold text-gray-900">Image Demo</h3>
               <p className="text-sm text-gray-700">next/image examples</p>
             </Link>
             <Link href="/mdx-demo" className="bg-gray-100 p-4 rounded-lg hover:bg-gray-200 transition-colors">
               <h3 className="font-semibold text-gray-900">MDX Demo</h3>
               <p className="text-sm text-gray-700">Markdown + JSX + Next.js</p>
+            </Link>
+            <Link href="/docs/a/b/c" className="bg-gray-100 p-4 rounded-lg hover:bg-gray-200 transition-colors">
+              <h3 className="font-semibold text-gray-900">Docs (Catch-all)</h3>
+              <p className="text-sm text-gray-700">Catch-all dynamic routing</p>
+            </Link>
+            <Link href="/optional-catch-all" className="bg-gray-100 p-4 rounded-lg hover:bg-gray-200 transition-colors">
+              <h3 className="font-semibold text-gray-900">Optional Catch-all</h3>
+              <p className="text-sm text-gray-700">Optional catch-all dynamic routing</p>
+            </Link>
+            <Link href="/parallel-demo" className="bg-gray-100 p-4 rounded-lg hover:bg-gray-200 transition-colors">
+              <h3 className="font-semibold text-gray-900">Parallel Routes Demo</h3>
+              <p className="text-sm text-gray-700">Parallel routes and slots</p>
+            </Link>
+            <Link
+              href="/conditional-routes-demo/user"
+              className="bg-gray-100 p-4 rounded-lg hover:bg-gray-200 transition-colors"
+            >
+              <h3 className="font-semibold text-gray-900">Conditional Routes</h3>
+              <p className="text-sm text-gray-700">Conditional slots by user role</p>
             </Link>
           </div>
         </div>

@@ -64,4 +64,10 @@ export default [
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
     },
   },
+  {
+    files: ['**/next-guide-app/**/*.ts*', '**/next-guide-pages/**/*.ts*'],
+    rules: {
+      'react-refresh/only-export-components': 'off',
+    },
+  },
 ];

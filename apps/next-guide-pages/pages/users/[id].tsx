@@ -64,14 +64,13 @@ export default function UserPage({ user }: UserPageProps) {
 
 export const getStaticPaths: GetStaticPaths = async () => {
   try {
-    const res = await fetch('http://localhost:3000/api/users');
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users`);
     const users: User[] = await res.json();
 
     const paths = users.map(user => ({
       params: { id: String(user.id) },
     }));
 
-    console.log('Generated paths:', paths);
     return {
       paths,
       fallback: false, // All paths are known at build time
@@ -94,7 +93,7 @@ export const getStaticProps: GetStaticProps = async ({ params }) => {
   }
 
   try {
-    const res = await fetch(`http://localhost:3000/api/users/${id}`);
+    const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/api/users/${id}`);
     const user: User = await res.json();
 
     if (!user) {

@@ -4,6 +4,9 @@ import createMDX from '@next/mdx';
 // Environment variables are now managed via .env files. See: https://nextjs.org/docs/pages/guides/environment-variables
 
 const nextConfig: NextConfig = {
+  // Enable React strict mode
+  reactStrictMode: true,
+
   // Enable experimental features
   experimental: {
     // Enable server actions

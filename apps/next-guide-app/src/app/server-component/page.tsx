@@ -38,14 +38,14 @@ async function UserList() {
               <p className="mt-1 text-sm text-gray-500">{user.email}</p>
             </div>
             <div className="px-4 py-4 sm:px-6">
-              <dl className="grid grid-cols-1 gap-x-4 gap-y-4 sm:grid-cols-2">
+              <dl className="space-y-2">
                 <div>
                   <dt className="text-sm font-medium text-gray-500">Company</dt>
-                  <dd className="mt-1 text-sm text-gray-900">{user.company.name}</dd>
+                  <dd className="mt-1 text-sm text-gray-900 break-words">{user.company.name}</dd>
                 </div>
                 <div>
                   <dt className="text-sm font-medium text-gray-500">Website</dt>
-                  <dd className="mt-1 text-sm text-gray-900">{user.website}</dd>
+                  <dd className="mt-1 text-sm text-gray-900 break-words">{user.website}</dd>
                 </div>
               </dl>
             </div>

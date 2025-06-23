@@ -7,6 +7,9 @@ const navLinks = [
   { href: '/ssr', name: 'SSR (getServerSideProps)' },
   { href: '/users/1', name: 'SSG Paths (getStaticPaths)' },
   { href: '/csr', name: 'CSR (Client-Side)' },
+  { href: '/404', name: 'Custom 404' },
+  { href: '/500', name: 'Custom 500' },
+  { href: '/api/users/1', name: 'API Route' },
 ];
 
 export default function Layout({ children }: { children: ReactNode }) {

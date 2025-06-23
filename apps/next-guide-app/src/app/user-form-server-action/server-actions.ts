@@ -1,6 +1,7 @@
 'use server';
 
 import { z } from 'zod';
+import { revalidateTag } from 'next/cache';
 
 const userSchema = z.object({
   name: z.string().min(2, 'Name must be at least 2 characters'),
@@ -22,6 +23,7 @@ export async function createUser(data: { name: string; email: string }) {
     if (!res.ok) {
       return { error: result.error || 'Failed to create user.' };
     }
+    revalidateTag('users');
     return { success: 'User created successfully!', user: result.user };
   } catch {
     return { error: 'Network error.' };
