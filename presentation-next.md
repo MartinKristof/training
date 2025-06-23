@@ -311,7 +311,7 @@ Server Components are rendered on the server and sent as HTML to the client, whi
 ---
 
 > For more, see [Server Components vs. Client Components](https://nextjs.org/docs/app/getting-started/server-and-client-components)
-> Nice explanation [Ariel Shulman - WebExpo](https://slideslive.com/39043219/conquering-react-concurrency?ref=search-presentations)
+> Nice explanation [Ariel Shulman - WebExpo](https://slideslive.com/39043219/conquering-react-concurrency?ref=search-presentations) - from 29:38
 
 ---
 
