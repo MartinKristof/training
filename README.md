@@ -24,8 +24,8 @@ This is a monorepo using Yarn workspaces, organized as follows:
 - `apps/` - Contains the routing implementation examples:
   - `data-way/` - Data-driven routing approach
   - `declarative-way/` - Declarative routing approach
-  - `apps/next-guide-app` – Next.js 15 App Router demo
-  - `apps/next-guide-pages` – Next.js 15 Pages Router demo
+  - `apps/next-guide-app/` – Next.js 15 App Router demo
+  - `apps/next-guide-pages/` – Next.js 15 Pages Router demo
 - `packages/` - Shared packages:
   - `ui/` - Common UI components
 
@@ -39,25 +39,25 @@ This is a monorepo using Yarn workspaces, organized as follows:
 1. First, install the latest version of Yarn globally:
 
    ```bash
-   npm install -g yarn
+      npm install -g yarn
    ```
 
 2. Then, enable Yarn Berry (Yarn 4) in your project:
 
    ```bash
-   yarn set version berry
+      yarn set version berry
    ```
 
 3. Verify the installation:
 
    ```bash
-   yarn --version
-   # Should show 4.6.0 or higher
+      yarn --version
+      # Should show 4.6.0 or higher
    ```
 
 4. (Optional) Enable Zero-Installs for faster installations:
    ```bash
-   yarn config set enableGlobalCache true
+      yarn config set enableGlobalCache true
    ```
 
 ## Getting Started
@@ -65,37 +65,36 @@ This is a monorepo using Yarn workspaces, organized as follows:
 1. Install dependencies:
 
    ```bash
-   yarn install
+      yarn install
    ```
 
 2. Build ui package:
 
-```bash
-   yarn build:ui
-```
+   ```bash
+      yarn build:ui
+   ```
 
 3. Generate Prisma:
 
-````bash
-   yarn prisma:generate:next-gude-app
-``¨
-
+   ```bash
+      yarn prisma:generate:next-gude-app
+   ```
 
 4. Start the development server for a specific routing approach:
 
    ```bash
-   # For data-driven routing approach
-   yarn start:data-way
+      # For data-driven routing approach
+      yarn start:data-way
 
-   # For declarative routing approach
-   yarn start:declarative-way
+      # For declarative routing approach
+      yarn start:declarative-way
 
-   # For next app with app router
-   yarn start:next-guide-app
+      # For next app with app router
+      yarn start:next-guide-app
 
-   # For  next app with pages router
-   yarn start:next-guide-pages
-````
+      # For  next app with pages router
+      yarn start:next-guide-pages
+   ```
 
 ## Available Scripts
 
@@ -116,10 +115,10 @@ This is a monorepo using Yarn workspaces, organized as follows:
 For local development, you can use:
 
 ```bash
-yarn start:data-way
-yarn start:declarative-way
-yarn start:next-guide-app
-yarn start:next-guide-pages
+   yarn start:data-way
+   yarn start:declarative-way
+   yarn start:next-guide-app
+   yarn start:next-guide-pages
 ```
 
 ## Contributing
