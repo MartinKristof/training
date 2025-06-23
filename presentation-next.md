@@ -33,24 +33,6 @@ style: |
     background: #000;
   }
 
-  /* Specific styles for lifecycle diagram */
-  img[src*="lifecycle"] {
-    max-height: 85vh;
-    width: auto;
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
-  }
-
-  /* Specific styles for devtools screenshots */
-  img[src*="devtools"] {
-    max-height: 75vh;
-    width: auto;
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
-  }
-
   /* Table styles */
   table {
     font-size: 0.9em;
@@ -135,7 +117,6 @@ style: |
 **Demos:**
 
 - [Homepage](apps/next-guide-pages/pages/index.tsx) ([/](http://localhost:3001/))
-- [Users list](apps/next-guide-pages/pages/users/index.tsx) ([/users](http://localhost:3001/users))
 - [User detail (dynamic route)](apps/next-guide-pages/pages/users/[id].tsx) ([/users/1](http://localhost:3001/users/1))
 - [API users route](apps/next-guide-pages/pages/api/users.ts) ([/api/users](http://localhost:3001/api/users))
 - [Catch-all route](apps/next-guide-pages/pages/ssg.tsx) ([/ssg](http://localhost:3001/ssg))
@@ -314,7 +295,7 @@ Server Components are rendered on the server and sent as HTML to the client, whi
 **Demos:**
 
 - [Server component example](apps/next-guide-app/src/app/server-component/page.tsx) ([/server-component](http://localhost:3000/server-component))
-- [Blog post: Server vs Client Components](apps/next-guide-app/src/app/blog/[slug]/page.tsx?slug=server-components-vs-client-components)
+- [Blog post: Server vs Client Components](apps/next-guide-app/src/app/blog/[slug]/page.tsx?slug=server-components-vs-client-components)([/blog/server-components-vs-client-components](http://localhost:3000/blog/server-components-vs-client-components))
 
 ---
 
@@ -325,21 +306,12 @@ Server Components are rendered on the server and sent as HTML to the client, whi
 **Demos:**
 
 - [Client component demo](apps/next-guide-app/src/app/client-component/page.tsx) ([/client-component](http://localhost:3000/client-component))
-- [Counter component](apps/next-guide-app/src/app/components/Counter.tsx)
+- with [Counter component](apps/next-guide-app/src/app/components/Counter.tsx)
 
 ---
 
 > For more, see [Server Components vs. Client Components](https://nextjs.org/docs/app/getting-started/server-and-client-components)
-
----
-
-## Partial Prerendering
-
-- Mix static, server, and client rendering
-
-**Demo:**
-
-- [Static page with client widget](apps/next-guide-app/src/app/page.tsx)
+> Nice explanation [Ariel Shulman - WebExpo](https://slideslive.com/39043219/conquering-react-concurrency?ref=search-presentations)
 
 ---
 
@@ -351,7 +323,7 @@ Server Components are rendered on the server and sent as HTML to the client, whi
 
 **Demos:**
 
-- [Dashboard (SSR)](apps/next-guide-app/src/app/dashboard/page.tsx) ([/dashboard](http://localhost:3000/dashboard))
+- [Dashboard (SSR)](apps/next-guide-app/src/app/dashboard/page.tsx) ([/dashboard](http://localhost:3000/dashboard)) - must be logged
 - [Blog (SSG)](apps/next-guide-app/src/app/blog/page.tsx) ([/blog](http://localhost:3000/blog))
 
 ---
@@ -364,7 +336,6 @@ Server Components are rendered on the server and sent as HTML to the client, whi
 **Demos:**
 
 - [Client data fetching](apps/next-guide-app/src/app/client-data-fetching/page.tsx) ([/client-data-fetching](http://localhost:3000/client-data-fetching))
-- [Caching demo](apps/next-guide-app/src/app/caching-demo/page.tsx) ([/caching-demo](http://localhost:3000/caching-demo))
 
 ---
 
@@ -386,6 +357,45 @@ Server Components are rendered on the server and sent as HTML to the client, whi
 **Demo:**
 
 - [Caching demo](apps/next-guide-app/src/app/caching-demo/page.tsx)([/caching-demo/](http://localhost:3000/caching-demo/))
+
+---
+
+## Server Actions
+
+- **Server Actions** let you run server-side code directly from your React components—no need to create a separate API route.
+- Useful for mutations (create, update, delete), form submissions, and cache invalidation.
+- Secure: code runs only on the server, never sent to the client.
+- Can be called from forms or programmatically.
+- Great for progressive enhancement (forms work even without JS).
+
+---
+
+**Minimal example:**
+
+```tsx
+// In a server component
+'use server';
+
+export async function createUser(formData) {
+  // Save to DB, revalidate cache, etc.
+}
+
+// In your page/component
+<form action={createUser}>
+  <input name="name" />
+  <button type="submit">Create</button>
+</form>;
+```
+
+---
+
+- **Examples:**
+
+  - [User form server action](apps/next-guide-app/src/app/user-form-server-action/server-actions.ts) - can be combined with [useActionState](apps/next-guide-app/src/app/user-form-server-action/page.tsx)
+  - [Database demo server actions](apps/next-guide-app/src/app/database-demo/server-actions.ts)
+
+- You can also call `revalidateTag` or `revalidatePath` inside a server action after a mutation.
+- [Docs: Server Actions](https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions)
 
 ---
 
@@ -481,7 +491,7 @@ export async function POST(request: NextRequest) {
 - In the App Router, you can separate sections using parentheses folders, e.g., `(marketing)`.
 - Allows you to separate, for example, public and internal parts of the site, or marketing pages.
 - **Example:**
-  - [Marketing group](<apps/next-guide-app/src/app/(marketing)/about/page.tsx>)
+  - [Marketing group](<apps/next-guide-app/src/app/(marketing)/about/page.tsx>) ([/about](http://localhost:3000/about))
 - [Official documentation](https://nextjs.org/docs/app/building-your-application/routing/route-groups)
 
 ---
@@ -492,10 +502,10 @@ export async function POST(request: NextRequest) {
 - Each slot is a folder starting with `@` (e.g., `@feed`, `@notifications`).
 - Slots can also be nested.
 - **Examples:**
-  - [Main parallel-demo](apps/next-guide-app/src/app/parallel-demo/page.tsx)
-  - [Feed slot](apps/next-guide-app/src/app/parallel-demo/@feed/page.tsx)
-  - [Notifications slot](apps/next-guide-app/src/app/parallel-demo/@notifications/page.tsx)
-  - [Nested slot feed/archive](apps/next-guide-app/src/app/parallel-demo/@feed/archive/page.tsx)
+  - [Main parallel-demo](apps/next-guide-app/src/app/parallel-demo/page.tsx) ([/parallel-demo](http://localhost:3000/parallel-demo))
+  - [Feed slot](apps/next-guide-app/src/app/parallel-demo/@feed/page.tsx) ([/parallel-demo](http://localhost:3000/parallel-demo))
+  - [Notifications slot](apps/next-guide-app/src/app/parallel-demo/@notifications/page.tsx) ([/parallel-demo](http://localhost:3000/parallel-demo))
+  - [Nested slot feed/archive](apps/next-guide-app/src/app/parallel-demo/@feed/archive/page.tsx) ([/parallel-demo/archive](http://localhost:3000/parallel-demo/archive))
 - [Official documentation](https://nextjs.org/docs/app/building-your-application/routing/parallel-routes)
 
 ---
@@ -505,22 +515,10 @@ export async function POST(request: NextRequest) {
 - Conditional routes allow you to dynamically change content based on a segment (e.g., user role).
 - Slots like `@admin`, `@user` within a dynamic folder `[role]`.
 - **Examples:**
-  - [Conditional routes demo](apps/next-guide-app/src/app/conditional-routes-demo/[role]/page.tsx)
-  - [Admin slot](apps/next-guide-app/src/app/conditional-routes-demo/[role]/@admin/page.tsx)
-  - [User slot](apps/next-guide-app/src/app/conditional-routes-demo/[role]/@user/page.tsx)
+  - [Conditional routes demo](apps/next-guide-app/src/app/conditional-routes-demo/[role]/page.tsx) ([/conditional-routes-demo/user](http://localhost:3000/conditional-routes-demo/user))
+  - [Admin slot](apps/next-guide-app/src/app/conditional-routes-demo/[role]/@admin/page.tsx) ([/conditional-routes-demo/admin](http://localhost:3000/conditional-routes-demo/admin))
+  - [User slot](apps/next-guide-app/src/app/conditional-routes-demo/[role]/@user/page.tsx) ([/conditional-routes-demo/user](http://localhost:3000/conditional-routes-demo/user))
 - [Official documentation](https://nextjs.org/docs/app/building-your-application/routing/parallel-routes#conditional-routes)
-
----
-
-# Server Actions
-
-- Server Actions allow you to call server logic directly from a component/form without writing an API route.
-- Secure, type-safe, runs only on the server.
-- **Examples:**
-  - [User form server action](apps/next-guide-app/src/app/user-form-server-action/server-actions.ts)
-  - [Progressive enhancement form](apps/next-guide-app/src/app/progressive-enhancement-form/server-actions.ts)
-  - [Database demo server actions](apps/next-guide-app/src/app/database-demo/server-actions.ts)
-- [Official documentation](https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions)
 
 ---
 
@@ -530,7 +528,7 @@ export async function POST(request: NextRequest) {
 - In Next.js, you can combine this with Server Actions.
 - Benefits: better accessibility, SEO, fallback for older browsers.
 - **Examples:**
-  - [Progressive enhancement form](apps/next-guide-app/src/app/progressive-enhancement-form/page.tsx)
+  - [Progressive enhancement form](apps/next-guide-app/src/app/progressive-enhancement-form/page.tsx) ([/progressive-enhancement-form](http://localhost:3000/progressive-enhancement-form))
   - [Server action](apps/next-guide-app/src/app/progressive-enhancement-form/server-actions.ts)
 - [Official documentation](https://nextjs.org/docs/app/building-your-application/data-fetching/forms-and-mutations)
 
@@ -545,7 +543,7 @@ export async function POST(request: NextRequest) {
 - **Examples:**
   - [error.tsx](apps/next-guide-app/src/app/error.tsx)
   - [global-error.tsx](apps/next-guide-app/src/app/global-error.tsx)
-  - [not-found.tsx](apps/next-guide-app/src/app/not-found.tsx)
+  - [not-found.tsx](apps/next-guide-app/src/app/not-found.tsx)[/not-found](http://localhost:3000/not-found))
 - [Official documentation](https://nextjs.org/docs/app/building-your-application/routing/error-handling)
 
 ---
@@ -558,12 +556,129 @@ export async function POST(request: NextRequest) {
 
 **Demos:**
 
-- [Middleware file](apps/next-guide-app/src/app/middleware.ts)
+- [Middleware file](apps/next-guide-app/src/middleware.ts)
 - [Middleware demo page](apps/next-guide-app/src/app/middleware-demo/page.tsx) ([/middleware-demo](http://localhost:3000/middleware-demo))
 
 ---
 
 # 5. Environments
+
+## Environment Variables
+
+- Next.js supports environment variables via `.env` files in the project root.
+- Supported files (loaded in this order):
+  1. `.env.$(NODE_ENV).local`
+  2. `.env.local` (not loaded in test)
+  3. `.env.$(NODE_ENV)`
+  4. `.env`
+
+---
+
+- Variables prefixed with `NEXT_PUBLIC_` are exposed to the browser (client-side). Others are only available on the server.
+- Example `.env`:
+  ```env
+  DATABASE_URL=postgres://user:pass@localhost:5432/db
+  NEXT_PUBLIC_API_URL=https://api.example.com
+  ```
+
+---
+
+- Usage in code:
+  ```js
+  // Server only
+  const dbUrl = process.env.DATABASE_URL;
+  // Client or server
+  const apiUrl = process.env.NEXT_PUBLIC_API_URL;
+  ```
+- Variables are inlined at build time for the client. For runtime values, use server-side code or API endpoints.
+- You can reference other variables in `.env` using `$VAR_NAME`.
+- For advanced use (e.g. loading env in scripts), use `@next/env`:
+  ```js
+  import { loadEnvConfig } from '@next/env';
+  loadEnvConfig(process.cwd());
+  ```
+
+[Official docs: Environment Variables](https://nextjs.org/docs/app/guides/environment-variables#environment-variable-load-order)
+
+---
+
+## Passing Data Between Environments
+
+When deploying Next.js in Docker or other environments, you often need to pass environment variables securely and correctly.
+
+- **.env files**: Place `.env`, `.env.production`, etc. in the project root. These are loaded automatically at build/start time.
+- **Server-side variables** (e.g. `DATABASE_URL`) are read at runtime and can be passed when starting the container:
+  ```bash
+  docker run -e DATABASE_URL=postgres://user:pass@host/db my-next-app
+  # or
+  docker run --env-file .env my-next-app
+  ```
+
+---
+
+- **Client-side variables** (must start with `NEXT_PUBLIC_`) are inlined at build time. They must be set before running `next build`:
+  ```Dockerfile
+  # Example Dockerfile snippet
+  ENV NEXT_PUBLIC_API_URL=https://api.example.com
+  RUN yarn build
+  ```
+
+---
+
+- **Build-time vs. Run-time:**
+  - Server envs can be changed at container start.
+  - Client envs are "baked in" at build time—changing them later requires a rebuild.
+- **Best practice:**
+  - Use server envs for secrets and runtime config.
+  - Use client envs only for values that can be public and are known at build time.
+
+---
+
+### Example: Dockerfile for Next.js
+
+```Dockerfile
+# Install dependencies only when needed
+FROM node:18-alpine AS deps
+WORKDIR /app
+COPY package.json yarn.lock ./
+RUN yarn install --frozen-lockfile
+
+# Build the app
+FROM node:18-alpine AS builder
+WORKDIR /app
+COPY . .
+COPY --from=deps /app/node_modules ./node_modules
+# Set build-time envs (client-side)
+ENV NEXT_PUBLIC_API_URL=https://api.example.com
+RUN yarn build
+
+# Production image
+FROM node:18-alpine AS runner
+WORKDIR /app
+ENV NODE_ENV=production
+COPY --from=builder /app/.next ./.next
+COPY --from=builder /app/public ./public
+COPY --from=builder /app/package.json ./package.json
+COPY --from=builder /app/node_modules ./node_modules
+
+# Set runtime envs (server-side)
+ENV DATABASE_URL=postgres://user:pass@host/db
+
+EXPOSE 3000
+CMD ["yarn", "start"]
+```
+
+---
+
+- Set `NEXT_PUBLIC_` variables before `yarn build` (build-time, client-side)
+- Set server-side variables (like `DATABASE_URL`) at runtime with `docker run -e ...`
+
+**Official docs:**
+
+- [Environment Variables](https://nextjs.org/docs/app/guides/environment-variables#environment-variable-load-order)
+- [Docker deployment](https://nextjs.org/docs/app/deployment#docker)
+
+---
 
 ## Node.js vs. Edge
 
@@ -587,16 +702,6 @@ export async function POST(request: NextRequest) {
   - [API route Node](apps/next-guide-app/src/app/api/runtime-node/route.ts)
   - [API request info](apps/next-guide-app/src/app/api/request-info/route.ts)
 - [Official documentation](https://nextjs.org/docs/app/building-your-application/routing/route-handlers)
-
----
-
-## Passing Data Between Environments
-
-- Use props, API endpoints, cookies
-
-**Demo:**
-
-- [Runtime demo](apps/next-guide-app/src/app/runtime-demo/page.tsx)
 
 ---
 
@@ -672,15 +777,10 @@ See more in the file: [next.config.ts – source code](apps/next-guide-app/next.
 # 7. Extra
 
 - **Styling:** See [globals.css](apps/next-guide-app/src/app/globals.css)
-- **Forms and Validation:**
-  - [Progressive enhancement form](apps/next-guide-app/src/app/progressive-enhancement-form/page.tsx)
-  - [User form with server action](apps/next-guide-app/src/app/user-form-server-action/page.tsx)
-- **Error Boundaries:**
-  - [Error boundary example](apps/next-guide-app/src/app/error.tsx)
 - **MDX:**
   - [MDX demo](apps/next-guide-app/src/app/mdx-demo/page.mdx)
-  - [MDX layout](apps/next-guide-app/src/app/mdx-demo/layout.tsx)
-  - [MDX components](apps/next-guide-app/src/app/mdx-components.tsx) – custom React components for use in MDX content
+  - [MDX layout](apps/next-guide-app/src/app/mdx-demo/layout.tsx) ([/mdx-demo](http://localhost:3000/mdx-demo))
+  - [MDX components](apps/next-guide-app/src/app/mdx-components.tsx) ([/mdx-demo](http://localhost:3000/mdx-demo))
 - **Image Component:**
   - [Image demo](apps/next-guide-app/src/app/image-demo/page.tsx) ([/image-demo](http://localhost:3000/image-demo))
 - **Shared Components:**

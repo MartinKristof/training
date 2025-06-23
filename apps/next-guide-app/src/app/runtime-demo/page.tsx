@@ -1,5 +1,5 @@
 export default async function RuntimeDemoPage() {
-  const baseUrl = process.env.NEXT_PUBLIC_API_URL;
+  const baseUrl = process.env.NEXT_PUBLIC_API_URL; // Will work only on dev
   const [nodeRes, edgeRes] = await Promise.all([fetch(`${baseUrl}/runtime-node`), fetch(`${baseUrl}/runtime-edge`)]);
   const nodeData = await nodeRes.json();
   const edgeData = await edgeRes.json();

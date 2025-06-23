@@ -1,5 +1,6 @@
 import { Suspense } from 'react';
 import ClientUserList from './ClientUserList';
+import { notFound } from 'next/navigation';
 
 interface User {
   id: number;
@@ -9,10 +10,15 @@ interface User {
 
 async function fetchUsers(): Promise<User[]> {
   try {
-    const res = await fetch(process.env.NEXT_PUBLIC_API_URL + '/users');
+    const res = await fetch(process.env.NEXT_PUBLIC_API_URL + 'users');
     if (!res.ok) throw new Error('Failed to fetch users');
-    const data = await res.json();
-    return data.users;
+    const data: User[] = await res.json();
+
+    if (!data) {
+      return notFound();
+    }
+
+    return data;
   } catch (err) {
     throw new Error('Error fetching users: ' + (err instanceof Error ? err.message : String(err)));
   }

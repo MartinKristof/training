@@ -115,7 +115,7 @@ async function DashboardStats() {
 export default function DashboardPage() {
   return (
     <div>
-      <h1>Dashboard Home</h1>
+      <h1 className="text-gray-600 text-xl">Dashboard Home</h1>
       <MyButton />
       <Suspense
         fallback={

@@ -89,6 +89,12 @@ This is a monorepo using Yarn workspaces, organized as follows:
 
    # For declarative routing approach
    yarn start:declarative-way
+
+   # For next app with app router
+   yarn start:next-guide-app
+
+   # For  next app with pages router
+   yarn start:next-guide-pages
 ````
 
 ## Available Scripts
@@ -111,7 +117,6 @@ For local development, you can use:
 
 ```bash
 yarn start:data-way
-# or with artificial delay
 yarn start:declarative-way
 yarn start:next-guide-app
 yarn start:next-guide-pages
