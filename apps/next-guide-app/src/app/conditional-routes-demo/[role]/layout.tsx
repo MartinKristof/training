@@ -1,6 +1,6 @@
 import React from 'react';
 
-export default function ConditionalLayout({
+export default async function ConditionalLayout({
   children,
   user,
   admin,
@@ -9,9 +9,9 @@ export default function ConditionalLayout({
   children: React.ReactNode;
   user: React.ReactNode;
   admin: React.ReactNode;
-  params: { role: string };
+  params: Promise<{ role: string }>;
 }) {
-  const { role } = params;
+  const { role } = await params;
 
   return (
     <div className="p-8 bg-slate-50 rounded-2xl shadow-lg">

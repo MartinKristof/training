@@ -1,4 +1,5 @@
-export default function OptionalCatchAllPage({ params }: { params: { slug?: string[] } }) {
+export default async function OptionalCatchAllPage({ params }: { params: Promise<{ slug?: string[] }> }) {
+  const { slug } = await params;
   return (
     <div className="max-w-xl mx-auto py-8 px-4">
       <h1 className="text-2xl font-bold mb-4 text-gray-900">Optional Catch-all Route</h1>
@@ -35,9 +36,9 @@ export default function OptionalCatchAllPage({ params }: { params: { slug?: stri
       </div>
       <div className="bg-blue-50 p-4 rounded border border-blue-100 text-blue-900">
         <strong>Matched segments:</strong>
-        {params.slug && params.slug.length > 0 ? (
+        {slug && slug.length > 0 ? (
           <ul className="list-disc pl-5 mt-2">
-            {params.slug.map((segment, i) => (
+            {slug.map((segment, i) => (
               <li key={i}>{segment}</li>
             ))}
           </ul>

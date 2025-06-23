@@ -3,10 +3,9 @@
 // ---
 
 import React from 'react';
-import { ReactNode } from 'react';
 import Link from 'next/link';
 
-export default function ParallelDemoPage({ children }: { children: ReactNode }) {
+export default function ParallelDemoPage() {
   return (
     <>
       <div className="mb-8 p-6 bg-blue-50 border-l-4 border-blue-400 rounded-xl shadow-sm">
@@ -54,7 +53,6 @@ export default function ParallelDemoPage({ children }: { children: ReactNode }) 
         >
           Go to Archive Page
         </Link>
-        <div className="space-y-4 mt-6">{children}</div>
       </div>
     </>
   );

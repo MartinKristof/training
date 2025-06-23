@@ -1,7 +1,8 @@
 import React from 'react';
 import Link from 'next/link';
 
-export default function ConditionalRoutesPage({ params }: { params: { role: string } }) {
+export default async function ConditionalRoutesPage({ params }: { params: Promise<{ role: string }> }) {
+  const { role } = await params;
   return (
     <div>
       <div className="mb-8 p-6 bg-amber-50 border-l-4 border-amber-400 rounded-xl shadow-sm">
@@ -37,7 +38,7 @@ export default function ConditionalRoutesPage({ params }: { params: { role: stri
           </Link>
         </div>
         <p className="mt-4 text-sm text-amber-800">
-          Current Role: <strong className="uppercase">{params.role}</strong>
+          Current Role: <strong className="uppercase">{role}</strong>
         </p>
       </div>
     </div>
