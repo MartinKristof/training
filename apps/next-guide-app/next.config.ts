@@ -132,7 +132,7 @@ const nextConfig: NextConfig = {
   },
 
   // Configure server components
-  serverExternalPackages: ['mongodb'],
+  serverExternalPackages: ['@prisma/client'],
 
   pageExtensions: ['ts', 'tsx', 'md', 'mdx'],
 };

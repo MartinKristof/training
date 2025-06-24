@@ -106,20 +106,20 @@ style: |
 ---
 
 - Special files for advanced customization:
-  - **\_app.tsx**: Custom root component for all pages ([see file](apps/next-guide-pages/pages/_app.tsx)). Use for global styles, context providers, etc.
-  - **\_document.tsx**: Customizes the HTML document structure ([see file](apps/next-guide-pages/pages/_document.tsx)). Use for meta tags, lang, etc.
-  - **\_error.tsx**: Custom error page for runtime errors ([see file](apps/next-guide-pages/pages/_error.tsx)).
-  - **404.tsx**: Custom 404 Not Found page ([see file](apps/next-guide-pages/pages/404.tsx)).
-  - **500.tsx**: Custom 500 Internal Server Error page ([see file](apps/next-guide-pages/pages/500.tsx)).
+  - **\_app.tsx**: Custom root component for all pages ([see file](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-pages/pages/_app.tsx)). Use for global styles, context providers, etc.
+  - **\_document.tsx**: Customizes the HTML document structure ([see file](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-pages/pages/_document.tsx)). Use for meta tags, lang, etc.
+  - **\_error.tsx**: Custom error page for runtime errors ([see file](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-pages/pages/_error.tsx)).
+  - **404.tsx**: Custom 404 Not Found page ([see file](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-pages/pages/404.tsx)).
+  - **500.tsx**: Custom 500 Internal Server Error page ([see file](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-pages/pages/500.tsx)).
 
 ---
 
 **Demos:**
 
-- [Homepage](apps/next-guide-pages/pages/index.tsx) ([/](http://localhost:3001/))
-- [User detail (dynamic route)](apps/next-guide-pages/pages/users/[id].tsx) ([/users/1](http://localhost:3001/users/1))
-- [API users route](apps/next-guide-pages/pages/api/users.ts) ([/api/users](http://localhost:3001/api/users))
-- [Catch-all route](apps/next-guide-pages/pages/ssg.tsx) ([/ssg](http://localhost:3001/ssg))
+- [Homepage](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-pages/pages/index.tsx) ([/](http://localhost:3001/))
+- [User detail (dynamic route)](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-pages/pages/users/[id].tsx) ([/users/1](http://localhost:3001/users/1))
+- [API users route](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-pages/pages/api/users.ts) ([/api/users](http://localhost:3001/api/users))
+- [Catch-all route](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-pages/pages/ssg.tsx) ([/ssg](http://localhost:3001/ssg))
 
 ---
 
@@ -219,9 +219,9 @@ export default function Navigation() {
 
 - The Pages Router supports multiple rendering and data fetching strategies:
   - **SSR (Server-Side Rendering):** Use `getServerSideProps` to fetch data on every request.
-    - [SSR example](apps/next-guide-pages/pages/ssr.tsx) ([/ssr](http://localhost:3001/ssr))
+    - [SSR example](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-pages/pages/ssr.tsx) ([/ssr](http://localhost:3001/ssr))
   - **SSG (Static Site Generation):** Use `getStaticProps` (and optionally `getStaticPaths`) to pre-render pages at build time.
-    - [SSG example](apps/next-guide-pages/pages/ssg.tsx) ([/ssg](http://localhost:3001/ssg))
+    - [SSG example](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-pages/pages/ssg.tsx) ([/ssg](http://localhost:3001/ssg))
 
 ---
 
@@ -238,7 +238,7 @@ Use `false` for small/finite sets of pages, `true` or `'blocking'` for large or 
 ---
 
 - **Client-side Fetching:** Use React hooks like `useEffect` to fetch data on the client after the page loads.
-  - [CSR example](apps/next-guide-pages/pages/csr.tsx) ([/csr](http://localhost:3001/csr))
+  - [CSR example](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-pages/pages/csr.tsx) ([/csr](http://localhost:3001/csr))
 - You can combine these strategies as needed for your use case.
 - See also: [Next.js Data Fetching Docs](https://nextjs.org/docs/pages/building-your-application/data-fetching/overview)
 
@@ -252,24 +252,29 @@ Use `false` for small/finite sets of pages, `true` or `'blocking'` for large or 
 
 - File-based routing in `src/app/`
 - Each folder with `page.tsx` = a route
-- Supports layouts, nested routes, dynamic routes, catch-all routes
+- Supports layouts (also nested), nested routes, dynamic routes, catch-all routes
 - **Layout:**
-  - [Root layout.tsx](/apps/next-guide-app/src/app/layout.tsx) – defines the main structure, shared UI, and providers for the whole app.
+  - [Root layout.tsx](/https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-app/src/app/layout.tsx) – defines the main structure, shared UI, and providers for the whole app.
+
+---
+
 - **Loading UI:**
   - You can add `loading.tsx` to any route folder for custom loading skeletons.
-  - [API loading](apps/next-guide-app/src/app/api/loading.tsx)
-  - [Dashboard loading](apps/next-guide-app/src/app/dashboard/loading.tsx)
-  - [Blog post loading](apps/next-guide-app/src/app/blog/[slug]/loading.tsx)
+  - [API loading](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-app/src/app/api/loading.tsx)
+  - [Dashboard loading](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-app/src/app/dashboard/loading.tsx)
+  - [Blog post loading](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-app/src/app/blog/[slug]/loading.tsx)
 - [Official Project Structure documentation](https://nextjs.org/docs/app/getting-started/project-structure)
+
+---
 
 **Demos:**
 
-- [Homepage route](apps/next-guide-app/src/app/page.tsx) ([/](http://localhost:3000/))
-- [Dynamic blog route](apps/next-guide-app/src/app/blog/[slug]/page.tsx) ([/blog/:slug](http://localhost:3000/blog/server-components-vs-client-components))
-- [Parallel routes demo](apps/next-guide-app/src/app/parallel-demo/page.tsx) ([/parallel-demo](http://localhost:3000/parallel-demo))
-- [Conditional routes demo](apps/next-guide-app/src/app/conditional-routes-demo/[role]/page.tsx) ([/conditional-routes-demo/user](http://localhost:3000/conditional-routes-demo/user))
-- [Catch-all route](apps/next-guide-app/src/app/docs/[...slug]/page.tsx) ([/docs/a/b/c](http://localhost:3000/docs/a/b/c))
-- [Optional catch-all](apps/next-guide-app/src/app/optional-catch-all/[[...slug]]/page.tsx) ([/optional-catch-all](http://localhost:3000/optional-catch-all))
+- [Homepage route](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-app/src/app/page.tsx) ([/](http://localhost:3000/))
+- [Dynamic blog route](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-app/src/app/blog/[slug]/page.tsx) ([/blog/:slug](http://localhost:3000/blog/server-components-vs-client-components))
+- [Parallel routes demo](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-app/src/app/parallel-demo/page.tsx) ([/parallel-demo](http://localhost:3000/parallel-demo))
+- [Conditional routes demo](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-app/src/app/conditional-routes-demo/[role]/page.tsx) ([/conditional-routes-demo/user](http://localhost:3000/conditional-routes-demo/user))
+- [Catch-all route](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-app/src/app/docs/[...slug]/page.tsx) ([/docs/a/b/c](http://localhost:3000/docs/a/b/c))
+- [Optional catch-all](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-app/src/app/optional-catch-all/[[...slug]]/page.tsx) ([/optional-catch-all](http://localhost:3000/optional-catch-all))
 
 ---
 
@@ -294,8 +299,8 @@ Server Components are rendered on the server and sent as HTML to the client, whi
 
 **Demos:**
 
-- [Server component example](apps/next-guide-app/src/app/server-component/page.tsx) ([/server-component](http://localhost:3000/server-component))
-- [Blog post: Server vs Client Components](apps/next-guide-app/src/app/blog/[slug]/page.tsx?slug=server-components-vs-client-components)([/blog/server-components-vs-client-components](http://localhost:3000/blog/server-components-vs-client-components))
+- [Server component example](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-app/src/app/server-component/page.tsx) ([/server-component](http://localhost:3000/server-component))
+- [Blog post: Server vs Client Components](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-app/src/app/blog/[slug]/page.tsx?slug=server-components-vs-client-components)([/blog/server-components-vs-client-components](http://localhost:3000/blog/server-components-vs-client-components))
 
 ---
 
@@ -305,8 +310,8 @@ Server Components are rendered on the server and sent as HTML to the client, whi
 
 **Demos:**
 
-- [Client component demo](apps/next-guide-app/src/app/client-component/page.tsx) ([/client-component](http://localhost:3000/client-component))
-- with [Counter component](apps/next-guide-app/src/app/components/Counter.tsx)
+- [Client component demo](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-app/src/app/client-component/page.tsx) ([/client-component](http://localhost:3000/client-component))
+- with [Counter component](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-app/src/app/components/Counter.tsx)
 
 ---
 
@@ -323,8 +328,8 @@ Server Components are rendered on the server and sent as HTML to the client, whi
 
 **Demos:**
 
-- [Dashboard (SSR)](apps/next-guide-app/src/app/dashboard/page.tsx) ([/dashboard](http://localhost:3000/dashboard)) - must be logged
-- [Blog (SSG)](apps/next-guide-app/src/app/blog/page.tsx) ([/blog](http://localhost:3000/blog))
+- [Dashboard (SSR)](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-app/src/app/dashboard/page.tsx) ([/dashboard](http://localhost:3000/dashboard)) - must be logged
+- [Blog (SSG)](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-app/src/app/blog/page.tsx) ([/blog](http://localhost:3000/blog))
 
 ---
 
@@ -335,7 +340,7 @@ Server Components are rendered on the server and sent as HTML to the client, whi
 
 **Demos:**
 
-- [Client data fetching](apps/next-guide-app/src/app/client-data-fetching/page.tsx) ([/client-data-fetching](http://localhost:3000/client-data-fetching))
+- [Client data fetching](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-app/src/app/client-data-fetching/page.tsx) ([/client-data-fetching](http://localhost:3000/client-data-fetching))
 
 ---
 
@@ -377,12 +382,12 @@ Server Components are rendered on the server and sent as HTML to the client, whi
 
 Use these options to fine-tune performance and cache behavior for each route.
 
-[Dashboard page example](apps/next-guide-app/src/app/dashboard/page.tsx) ([/dashboard](http://localhost:3000/dashboard)) - see build report
+[Dashboard page example](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-app/src/app/dashboard/page.tsx) ([/dashboard](http://localhost:3000/dashboard)) - see build report
 [Docs: Static and Dynamic Rendering](https://nextjs.org/docs/app/building-your-application/rendering/static-and-dynamic-rendering)
 
 **Demos:**
 
-- [Caching demo](apps/next-guide-app/src/app/caching-demo/page.tsx)([/caching-demo/](http://localhost:3000/caching-demo/))
+- [Caching demo](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-app/src/app/caching-demo/page.tsx)([/caching-demo/](http://localhost:3000/caching-demo/))
 
 ---
 
@@ -430,8 +435,8 @@ export async function createUser(formData) {
 
 - **Examples:**
 
-  - [User form server action](apps/next-guide-app/src/app/user-form-server-action/server-actions.ts) - can be combined with [useActionState](apps/next-guide-app/src/app/user-form-server-action/page.tsx)
-  - [Database demo server actions](apps/next-guide-app/src/app/database-demo/server-actions.ts)
+  - [User form server action](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-app/src/app/user-form-server-action/server-actions.ts) - can be combined with [useActionState](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-app/src/app/user-form-server-action/page.tsx)
+  - [Database demo server actions](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-app/src/app/database-demo/server-actions.ts)
 
 - You can also call `revalidateTag` or `revalidatePath` inside a server action after a mutation.
 - [Docs: Server Actions](https://nextjs.org/docs/app/building-your-application/data-fetching/server-actions)
@@ -464,8 +469,8 @@ export async function createUser(formData) {
 ---
 
 - See examples in the project:
-  - [User Form Server Action (revalidateTag)](apps/next-guide-app/src/app/user-form-server-action/server-actions.ts) ([/user-form-server-action](http://localhost:3000/user-form-server-action))
-  - [Database Demo (revalidatePath)](apps/next-guide-app/src/app/database-demo/server-actions.ts) ([/database-demo](http://localhost:3000/database-demo))
+  - [User Form Server Action (revalidateTag)](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-app/src/app/user-form-server-action/server-actions.ts) ([/user-form-server-action](http://localhost:3000/user-form-server-action))
+  - [Database Demo (revalidatePath)](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-app/src/app/database-demo/server-actions.ts) ([/database-demo](http://localhost:3000/database-demo))
 - More in the docs: [revalidateTag](https://nextjs.org/docs/app/api-reference/functions/revalidateTag), [revalidatePath](https://nextjs.org/docs/app/api-reference/functions/revalidatePath)
 
 ---
@@ -476,8 +481,8 @@ export async function createUser(formData) {
 
 **Demos:**
 
-- [Database demo](apps/next-guide-app/src/app/database-demo/page.tsx) ([/database-demo](http://localhost:3000/database-demo))
-- [Prisma schema](apps/next-guide-app/prisma/schema.prisma)
+- [Database demo](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-app/src/app/database-demo/page.tsx) ([/database-demo](http://localhost:3000/database-demo))
+- [Prisma schema](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-app/prisma/schema.prisma)
 
 **Tip:** To explore and edit your database visually, you can use Prisma Studio:
 
@@ -530,7 +535,7 @@ export async function POST(request: NextRequest) {
 - In the App Router, you can separate sections using parentheses folders, e.g., `(marketing)`.
 - Allows you to separate, for example, public and internal parts of the site, or marketing pages.
 - **Example:**
-  - [Marketing group](<apps/next-guide-app/src/app/(marketing)/about/page.tsx>) ([/about](http://localhost:3000/about))
+  - [Marketing group](<https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-app/src/app/(marketing)/about/page.tsx>) ([/about](http://localhost:3000/about))
 - [Official documentation](https://nextjs.org/docs/app/building-your-application/routing/route-groups)
 
 ---
@@ -541,10 +546,10 @@ export async function POST(request: NextRequest) {
 - Each slot is a folder starting with `@` (e.g., `@feed`, `@notifications`).
 - Slots can also be nested.
 - **Examples:**
-  - [Main parallel-demo](apps/next-guide-app/src/app/parallel-demo/page.tsx) ([/parallel-demo](http://localhost:3000/parallel-demo))
-  - [Feed slot](apps/next-guide-app/src/app/parallel-demo/@feed/page.tsx) ([/parallel-demo](http://localhost:3000/parallel-demo))
-  - [Notifications slot](apps/next-guide-app/src/app/parallel-demo/@notifications/page.tsx) ([/parallel-demo](http://localhost:3000/parallel-demo))
-  - [Nested slot feed/archive](apps/next-guide-app/src/app/parallel-demo/@feed/archive/page.tsx) ([/parallel-demo/archive](http://localhost:3000/parallel-demo/archive))
+  - [Main parallel-demo](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-app/src/app/parallel-demo/page.tsx) ([/parallel-demo](http://localhost:3000/parallel-demo))
+  - [Feed slot](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-app/src/app/parallel-demo/@feed/page.tsx) ([/parallel-demo](http://localhost:3000/parallel-demo))
+  - [Notifications slot](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-app/src/app/parallel-demo/@notifications/page.tsx) ([/parallel-demo](http://localhost:3000/parallel-demo))
+  - [Nested slot feed/archive](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-app/src/app/parallel-demo/@feed/archive/page.tsx) ([/parallel-demo/archive](http://localhost:3000/parallel-demo/archive))
 - [Official documentation](https://nextjs.org/docs/app/building-your-application/routing/parallel-routes)
 
 ---
@@ -554,9 +559,9 @@ export async function POST(request: NextRequest) {
 - Conditional routes allow you to dynamically change content based on a segment (e.g., user role).
 - Slots like `@admin`, `@user` within a dynamic folder `[role]`.
 - **Examples:**
-  - [Conditional routes demo](apps/next-guide-app/src/app/conditional-routes-demo/[role]/page.tsx) ([/conditional-routes-demo/user](http://localhost:3000/conditional-routes-demo/user))
-  - [Admin slot](apps/next-guide-app/src/app/conditional-routes-demo/[role]/@admin/page.tsx) ([/conditional-routes-demo/admin](http://localhost:3000/conditional-routes-demo/admin))
-  - [User slot](apps/next-guide-app/src/app/conditional-routes-demo/[role]/@user/page.tsx) ([/conditional-routes-demo/user](http://localhost:3000/conditional-routes-demo/user))
+  - [Conditional routes demo](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-app/src/app/conditional-routes-demo/[role]/page.tsx) ([/conditional-routes-demo/user](http://localhost:3000/conditional-routes-demo/user))
+  - [Admin slot](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-app/src/app/conditional-routes-demo/[role]/@admin/page.tsx) ([/conditional-routes-demo/admin](http://localhost:3000/conditional-routes-demo/admin))
+  - [User slot](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-app/src/app/conditional-routes-demo/[role]/@user/page.tsx) ([/conditional-routes-demo/user](http://localhost:3000/conditional-routes-demo/user))
 - [Official documentation](https://nextjs.org/docs/app/building-your-application/routing/parallel-routes#conditional-routes)
 
 ---
@@ -567,8 +572,8 @@ export async function POST(request: NextRequest) {
 - In Next.js, you can combine this with Server Actions.
 - Benefits: better accessibility, SEO, fallback for older browsers.
 - **Examples:**
-  - [Progressive enhancement form](apps/next-guide-app/src/app/progressive-enhancement-form/page.tsx) ([/progressive-enhancement-form](http://localhost:3000/progressive-enhancement-form))
-  - [Server action](apps/next-guide-app/src/app/progressive-enhancement-form/server-actions.ts)
+  - [Progressive enhancement form](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-app/src/app/progressive-enhancement-form/page.tsx) ([/progressive-enhancement-form](http://localhost:3000/progressive-enhancement-form))
+  - [Server action](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-app/src/app/progressive-enhancement-form/server-actions.ts)
 - [Official documentation](https://nextjs.org/docs/app/building-your-application/data-fetching/forms-and-mutations)
 
 ---
@@ -577,12 +582,12 @@ export async function POST(request: NextRequest) {
 
 - Next.js App Router has special files for error boundaries:
   - `error.tsx` – error boundary for a specific route
-  - `global-error.tsx` – global error boundary for the whole app ([global-error.tsx](apps/next-guide-app/src/app/global-error.tsx))
-  - `not-found.tsx` – page for 404 errors ([not-found.tsx](apps/next-guide-app/src/app/not-found.tsx))
+  - `global-error.tsx` – global error boundary for the whole app ([global-error.tsx](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-app/src/app/global-error.tsx))
+  - `not-found.tsx` – page for 404 errors ([not-found.tsx](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-app/src/app/not-found.tsx))
 - **Examples:**
-  - [error.tsx](apps/next-guide-app/src/app/error.tsx)
-  - [global-error.tsx](apps/next-guide-app/src/app/global-error.tsx)
-  - [not-found.tsx](apps/next-guide-app/src/app/not-found.tsx)[/not-found](http://localhost:3000/not-found))
+  - [error.tsx](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-app/src/app/error.tsx)
+  - [global-error.tsx](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-app/src/app/global-error.tsx)
+  - [not-found.tsx](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-app/src/app/not-found.tsx)[/not-found](http://localhost:3000/not-found))
 - [Official documentation](https://nextjs.org/docs/app/building-your-application/routing/error-handling)
 
 ---
@@ -595,8 +600,8 @@ export async function POST(request: NextRequest) {
 
 **Demos:**
 
-- [Middleware file](apps/next-guide-app/src/middleware.ts)
-- [Middleware demo page](apps/next-guide-app/src/app/middleware-demo/page.tsx) ([/middleware-demo](http://localhost:3000/middleware-demo))
+- [Middleware file](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-app/src/middleware.ts)
+- [Middleware demo page](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-app/src/app/middleware-demo/page.tsx) ([/middleware-demo](http://localhost:3000/middleware-demo))
 
 ---
 
@@ -726,7 +731,7 @@ CMD ["yarn", "start"]
 
 **Demo:**
 
-- [Runtime demo](apps/next-guide-app/src/app/runtime-demo/page.tsx) ([/runtime-demo](http://localhost:3000/runtime-demo))
+- [Runtime demo](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-app/src/app/runtime-demo/page.tsx) ([/runtime-demo](http://localhost:3000/runtime-demo))
 
 ---
 
@@ -737,9 +742,9 @@ CMD ["yarn", "start"]
   - **Node runtime:** full access to Node.js API
 - You can also get request info (headers, cookies, etc.)
 - **Examples:**
-  - [API route Edge](apps/next-guide-app/src/app/api/runtime-edge/route.ts)
-  - [API route Node](apps/next-guide-app/src/app/api/runtime-node/route.ts)
-  - [API request info](apps/next-guide-app/src/app/api/request-info/route.ts)
+  - [API route Edge](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-app/src/app/api/runtime-edge/route.ts)
+  - [API route Node](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-app/src/app/api/runtime-node/route.ts)
+  - [API request info](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-app/src/app/api/request-info/route.ts)
 - [Official documentation](https://nextjs.org/docs/app/building-your-application/routing/route-handlers)
 
 ---
@@ -784,7 +789,7 @@ Use `assetPrefix` when deploying static assets to a CDN. Use `basePath` when you
 Example from the project:
 
 ```js
-// apps/next-guide-app/next.config.ts
+// https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-app/next.config.ts
 // Redirects
 async redirects() {
   return [
@@ -808,7 +813,7 @@ async rewrites() {
 
 ## **Try it live:** [http://localhost:3000/old-blog](http://localhost:3000/old-blog) (should redirect to `/blog`)
 
-See more in the file: [next.config.ts – source code](apps/next-guide-app/next.config.ts)
+See more in the file: [next.config.ts – source code](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-app/next.config.ts)
 
 - [Official docs: Redirects](https://nextjs.org/docs/app/api-reference/next-config-js/redirects)
 - [Official docs: Rewrites](https://nextjs.org/docs/app/api-reference/next-config-js/rewrites)
@@ -822,28 +827,28 @@ See more in the file: [next.config.ts – source code](apps/next-guide-app/next.
 - In Next.js, add an `instrumentation.js` or `instrumentation.ts` file to `app/`.
 - Runs only on the server at process startup.
 - **Examples:**
-  - [instrumentation.js](apps/next-guide-app/src/app/instrumentation.js)
-  - [Instrumentation demo page](apps/next-guide-app/src/app/instrumentation-demo/page.tsx)
+  - [instrumentation.js](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-app/src/app/instrumentation.js)
+  - [Instrumentation demo page](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-app/src/app/instrumentation-demo/page.tsx)
 - [Official documentation](https://nextjs.org/docs/app/building-your-application/optimizing/instrumentation)
   **Demos:**
-- [Instrumentation demo](apps/next-guide-app/src/app/instrumentation-demo/page.tsx) ([/instrumentation-demo](http://localhost:3000/instrumentation-demo))
-- [instrumentation.js example](apps/next-guide-app/src/app/instrumentation.js)
+- [Instrumentation demo](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-app/src/app/instrumentation-demo/page.tsx) ([/instrumentation-demo](http://localhost:3000/instrumentation-demo))
+- [instrumentation.js example](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-app/src/app/instrumentation.js)
 
 ---
 
 # 7. Extra
 
-- **Styling:** See [globals.css](apps/next-guide-app/src/app/globals.css)
+- **Styling:** See [globals.css](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-app/src/app/globals.css)
 - **MDX:**
-  - [MDX demo](apps/next-guide-app/src/app/mdx-demo/page.mdx)
-  - [MDX layout](apps/next-guide-app/src/app/mdx-demo/layout.tsx) ([/mdx-demo](http://localhost:3000/mdx-demo))
-  - [MDX components](apps/next-guide-app/src/app/mdx-components.tsx) ([/mdx-demo](http://localhost:3000/mdx-demo))
+  - [MDX demo](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-app/src/app/mdx-demo/page.mdx)
+  - [MDX layout](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-app/src/app/mdx-demo/layout.tsx) ([/mdx-demo](http://localhost:3000/mdx-demo))
+  - [MDX components](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-app/src/app/mdx-components.tsx) ([/mdx-demo](http://localhost:3000/mdx-demo))
 
 ---
 
 - **Image Component:**
 
-  - [Image demo](apps/next-guide-app/src/app/image-demo/page.tsx) ([/image-demo](http://localhost:3000/image-demo))
+  - [Image demo](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-app/src/app/image-demo/page.tsx) ([/image-demo](http://localhost:3000/image-demo))
 
   > **Note:** If you want to load images from external domains, you must add those domains to `remotePatterns` in your `next.config.ts`:
   >
@@ -864,10 +869,10 @@ See more in the file: [next.config.ts – source code](apps/next-guide-app/next.
 ---
 
 - **Shared Components:**
-  - [Counter component](apps/next-guide-app/src/app/components/Counter.tsx)
+  - [Counter component](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-app/src/app/components/Counter.tsx)
   - Use a `/components` or `/_components` (private - non-routable) folder for reusable UI (best practice)
 - **Public Assets:**
-  - Use the `/public` folder for static assets (images, favicon, etc.) ([public/](apps/next-guide-app/public/))
+  - Use the `/public` folder for static assets (images, favicon, etc.) ([public/](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-app/public/))
 
 ---
 
