@@ -74,10 +74,10 @@ This is a monorepo using Yarn workspaces, organized as follows:
       yarn build:ui
    ```
 
-3. Generate Prisma:
+3. Generate Prisma (Only for App router app):
 
    ```bash
-      yarn prisma:generate:next-gude-app
+      yarn prisma:generate:next-guide-app
    ```
 
 4. Start the development server for a specific routing approach:
@@ -102,7 +102,7 @@ This is a monorepo using Yarn workspaces, organized as follows:
 - `yarn start:declarative-way` - Start the declarative routing example
 - `yarn start:next-guide-app` - Start the Next.js App Router example
 - `yarn start:next-guide-pages` - Start the Next.js Pages Router example
-- `prisma:generate:next-gude-app` - Generate Prisma client and other stufff
+- `prisma:generate:next-guide-app` - Generate Prisma client and other stuff
 - `yarn lint` - Run ESLint to check code quality
 - `yarn lint:fix` - Fix ESLint issues automatically
 - `yarn pretty` - Check code formatting with Prettier
