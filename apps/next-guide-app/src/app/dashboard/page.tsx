@@ -3,9 +3,9 @@ import MyButton from '../_components/MyButton';
 import { Metadata } from 'next';
 
 // Force dynamic rendering: always render on the server, no cache
-// export const dynamic = 'force-dynamic';
+export const dynamic = 'force-static';
 // Even if you set revalidate, it will be ignored with force-dynamic
-// export const revalidate = 60;
+export const revalidate = 60;
 
 export const metadata: Metadata = {
   title: 'Dashboard',

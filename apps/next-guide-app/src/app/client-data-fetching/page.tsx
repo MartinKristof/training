@@ -9,10 +9,26 @@ interface User {
 }
 
 async function fetchUsers(): Promise<User[]> {
+  if (process.env.NODE_ENV !== 'production') {
+    try {
+      const res = await fetch(process.env.NEXT_PUBLIC_API_URL + '/users');
+      if (!res.ok) throw new Error('Failed to fetch users');
+      const data = await res.json();
+
+      if (!data.users) {
+        return notFound();
+      }
+
+      return data.users;
+    } catch (err) {
+      throw new Error('Error fetching users: ' + (err instanceof Error ? err.message : String(err)));
+    }
+  }
+
   try {
-    const res = await fetch(process.env.NEXT_PUBLIC_API_URL + 'users');
+    const res = await fetch(process.env.NEXT_PUBLIC_API_URL + '/users');
     if (!res.ok) throw new Error('Failed to fetch users');
-    const data: User[] = await res.json();
+    const data = await res.json();
 
     if (!data) {
       return notFound();

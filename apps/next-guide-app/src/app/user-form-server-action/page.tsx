@@ -1,10 +1,9 @@
 'use client';
 
 import { z } from 'zod';
-import { useActionState } from 'react';
+import { useActionState, useEffect, useState } from 'react';
 import { createUser } from './server-actions';
 import { ErrorMessage, Input, Label } from '@training/ui';
-import { useEffect, useState } from 'react';
 
 const userSchema = z.object({
   name: z.string().min(3, 'Name must be at least 3 characters'),
@@ -94,8 +93,8 @@ export default function UserFormServerActionPage() {
       <div className="w-full max-w-md mt-8 bg-white p-6 rounded-xl shadow border">
         <h2 className="text-xl font-bold mb-4 text-gray-900">Users</h2>
         <ul className="space-y-2">
-          {users.map((user, i) => (
-            <li key={i} className="flex flex-col border-b pb-2">
+          {users.map(user => (
+            <li key={user.email} className="flex flex-col border-b pb-2">
               <span className="font-medium text-gray-800">{user.name}</span>
               <span className="text-gray-500 text-sm">{user.email}</span>
             </li>

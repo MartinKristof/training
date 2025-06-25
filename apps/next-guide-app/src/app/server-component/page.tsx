@@ -31,7 +31,7 @@ async function UserList() {
     <div className="space-y-4">
       <h2 className="text-2xl font-bold text-gray-900">Users (Server Component)</h2>
       <div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3">
-        {users.slice(0, 3).map(user => (
+        {users.map(user => (
           <div key={user.id} className="bg-white overflow-hidden shadow rounded-lg divide-y divide-gray-200">
             <div className="px-4 py-5 sm:px-6">
               <h3 className="text-lg font-medium text-gray-900">{user.name}</h3>

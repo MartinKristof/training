@@ -2,6 +2,7 @@ import React from 'react';
 import { GetStaticPaths, GetStaticProps, InferGetStaticPropsType } from 'next';
 import { useRouter } from 'next/router';
 import { User } from '@/lib/data';
+import Link from 'next/link';
 
 export default function UserPage({ user }: InferGetStaticPropsType<typeof getStaticProps>) {
   const router = useRouter();
@@ -44,14 +45,14 @@ export default function UserPage({ user }: InferGetStaticPropsType<typeof getSta
           </ul>
         </div>
         <p className="text-sm text-purple-700 mt-2">
-          <a
+          <Link
             href="https://nextjs.org/docs/pages/building-your-application/data-fetching/get-static-paths"
             target="_blank"
             rel="noopener noreferrer"
             className="underline"
           >
             Learn more in the docs.
-          </a>
+          </Link>
         </p>
       </div>
     </div>
@@ -68,9 +69,9 @@ export const getStaticPaths = (async () => {
 
   return {
     paths,
-    fallback: false, // All paths are known at build time
+    // fallback: false, // All paths are known at build time
     // Set to 'true' or 'blocking' if you want to allow new paths to be generated at runtime
-    // fallback: true, // Uncomment this line to enable fallback mode
+    fallback: true, // Uncomment this line to enable fallback mode
     // fallback: 'blocking', // Uncomment this line to enable blocking fallback mode
   };
 }) satisfies GetStaticPaths;
@@ -86,7 +87,7 @@ export const getStaticProps = (async ({ params }) => {
   const res = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/users/${id}`);
   const user: User = await res.json();
 
-  if (!user) {
+  if (!user || !user.id) {
     return {
       notFound: true,
     };

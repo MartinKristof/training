@@ -119,7 +119,6 @@ style: |
 - [Homepage](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-pages/pages/index.tsx) ([/](http://localhost:3001/))
 - [User detail (dynamic route)](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-pages/pages/users/[id].tsx) ([/users/1](http://localhost:3001/users/1))
 - [API users route](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-pages/pages/api/users.ts) ([/api/users](http://localhost:3001/api/users))
-- [Catch-all route](https://github.com/MartinKristof/training/blob/next-js/apps/next-guide-pages/pages/ssg.tsx) ([/ssg](http://localhost:3001/ssg))
 
 ---
 
@@ -208,7 +207,7 @@ export default function Navigation() {
 
 ---
 
-- For advanced use cases, you can use the `useRouter`, `usePathname`, and `useSearchParams` hooks from `next/navigation`.
+- For advanced use cases, you can use the `useRouter` (Pages Router), `usePathname`, and `useSearchParams` hooks from `next/navigation` (App Router).
 - [Official documentation: Linking and Navigating](https://nextjs.org/docs/app/getting-started/linking-and-navigating)
 
 ---
@@ -503,7 +502,6 @@ yarn prisma studio
 ---
 
 - Route handlers are colocated with your routes, and support dynamic segments, catch-all, and route groups.
-- **Difference from Pages Router:** No need for `api/` prefix in the URL, and you have full control over HTTP methods and runtime.
 - [Official documentation: Route Handlers](https://nextjs.org/docs/app/building-your-application/routing/route-handlers)
 
 ---
@@ -720,7 +718,7 @@ CMD ["yarn", "start"]
 **Official docs:**
 
 - [Environment Variables](https://nextjs.org/docs/app/guides/environment-variables#environment-variable-load-order)
-- [Docker deployment](https://nextjs.org/docs/app/deployment#docker)
+- [Docker deployment](https://nextjs.org/docs/app/getting-started/deploying#docker)
 
 ---
 
