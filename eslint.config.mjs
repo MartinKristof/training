@@ -8,16 +8,34 @@ import prettierPlugin from 'eslint-plugin-prettier';
 import prettierConfig from 'eslint-config-prettier';
 import reactPlugin from 'eslint-plugin-react';
 import jsxA11y from 'eslint-plugin-jsx-a11y';
+import next from '@next/eslint-plugin-next';
 
 export default [
   {
-    files: ['**/*.{ts,tsx}'],
+    ignores: [
+      '**/node_modules/**',
+      '**/.next/**',
+      '**/dist/**',
+      '**/build/**',
+      '**/generated/**',
+      '**/prisma/**',
+      '**/coverage/**',
+      '**/out/**',
+      '**/public/**',
+      '**/static/**',
+    ],
+  },
+  {
+    files: ['**/*.{ts,tsx,mjs}'],
 
     languageOptions: {
       parser: tsparser,
       sourceType: 'module',
       ecmaVersion: 'latest',
-      globals: globals.browser,
+      globals: {
+        ...globals.browser,
+        ...globals.node,
+      },
     },
 
     plugins: {
@@ -45,6 +63,19 @@ export default [
       'prettier/prettier': 'error',
       'react-hooks/react-compiler': 'error',
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
+    },
+  },
+  {
+    files: ['**/next-guide-app/**/*.{ts,tsx,mjs}', '**/next-guide-pages/**/*.{ts,tsx,mjs}'],
+
+    plugins: {
+      '@next/next': next,
+    },
+
+    rules: {
+      ...next.configs.recommended.rules,
+      ...next.configs['core-web-vitals'].rules,
+      'react-refresh/only-export-components': 'off',
     },
   },
 ];

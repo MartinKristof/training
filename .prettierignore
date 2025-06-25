@@ -3,3 +3,7 @@
 db.json
 .github
 **/dist/** 
+apps/next-guide-app/.next
+apps/next-guide-pages/.next
+apps/next-guide-app/src/generated
+apps/next-guide-app/prisma
